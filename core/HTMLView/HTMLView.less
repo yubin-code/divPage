@@ -1,0 +1,342 @@
+﻿.Jyo-HTMLView {
+    position: relative;
+    width: 100%;
+    font-family: @defFont;
+    font-size: 28rpx;
+    margin: 0 auto;
+
+    view {
+        overflow: visible;
+    }
+
+    .Jyo-HTMLView-inline {
+        display: inline;
+        margin: 0;
+        padding: 0;
+    }
+
+    .Jyo-HTMLView-div {
+        margin: 0;
+        padding: 0;
+    }
+
+    .Jyo-HTMLView-br {
+        display: block;
+    }
+
+    .Jyo-HTMLView-br + .Jyo-HTMLView-br {
+        display: inline-block;
+        content: " ";
+        width: 100%;
+    }
+
+    .Jyo-HTMLView-h1 {
+        font-size: 2em;
+        margin: .67em 0
+    }
+
+    .Jyo-HTMLView-h2 {
+        font-size: 1.5em;
+        margin: .75em 0
+    }
+
+    .Jyo-HTMLView-h3 {
+        font-size: 1.17em;
+        margin: .83em 0
+    }
+
+    .Jyo-HTMLView-h4 {
+        margin: 1.12em 0
+    }
+
+    .Jyo-HTMLView-h5 {
+        font-size: .83em;
+        margin: 1.5em 0
+    }
+
+    .Jyo-HTMLView-h6 {
+        font-size: .75em;
+        margin: 1.67em 0
+    }
+
+    .Jyo-HTMLView-h1 {
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: .9em;
+    }
+
+    .Jyo-HTMLView-h2 {
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: .34em;
+    }
+
+    .Jyo-HTMLView-h3 {
+        font-weight: 400;
+        font-size: 15px;
+        margin-bottom: .34em;
+    }
+
+    .Jyo-HTMLView-h4 {
+        font-weight: 400;
+        font-size: 14px;
+        margin-bottom: .24em;
+    }
+
+    .Jyo-HTMLView-h5 {
+        font-weight: 400;
+        font-size: 13px;
+        margin-bottom: .14em;
+    }
+
+    .Jyo-HTMLView-h6 {
+        font-weight: 400;
+        font-size: 12px;
+        margin-bottom: .04em;
+    }
+
+    .Jyo-HTMLView-h1, .Jyo-HTMLView-h2, .Jyo-HTMLView-h3, .Jyo-HTMLView-h4, .Jyo-HTMLView-h5, .Jyo-HTMLView-h6, .Jyo-HTMLView-b, .Jyo-HTMLView-strong {
+        font-weight: bolder;
+    }
+
+    .Jyo-HTMLView-i, .Jyo-HTMLView-cite, .Jyo-HTMLView-em, .Jyo-HTMLView-var, .Jyo-HTMLView-address {
+        font-style: italic
+    }
+
+    .Jyo-HTMLView-pre, .Jyo-HTMLView-tt, .Jyo-HTMLView-code, .Jyo-HTMLView-kbd, .Jyo-HTMLView-samp {
+        font-family: monospace;
+    }
+
+    .Jyo-HTMLView-pre {
+        white-space: pre
+    }
+
+    .Jyo-HTMLView-big {
+        font-size: 1.17em
+    }
+
+    .Jyo-HTMLView-small, .Jyo-HTMLView-sub, .Jyo-HTMLView-sup {
+        font-size: .83em
+    }
+
+    .Jyo-HTMLView-sub {
+        vertical-align: sub;
+    }
+
+    .Jyo-HTMLView-sup {
+        vertical-align: super;
+    }
+
+    .Jyo-HTMLView-s, .Jyo-HTMLView-strike, .Jyo-HTMLView-del {
+        text-decoration: line-through;
+    }
+
+    .Jyo-HTMLView-strong, .Jyo-HTMLView-s {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .Jyo-HTMLView-a {
+        word-break: break-all;
+        overflow: auto;
+    }
+
+    .Jyo-HTMLView-video {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .Jyo-HTMLView-video-video {
+        width: 100%;
+    }
+
+    .Jyo-HTMLView-img {
+        display: block;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .Jyo-HTMLView-blockquote {
+        margin: 0;
+        padding: 10px 0 10px 5px;
+        border-left: 3px solid;
+    }
+
+    .Jyo-HTMLView-code, .Jyo-HTMLView-wxxxcode-style {
+        display: inline;
+    }
+
+    .Jyo-HTMLView-ul {
+        margin: 20rpx 10rpx;
+    }
+
+    .Jyo-HTMLView-li, .Jyo-HTMLView-li-inner {
+        display: flex;
+        align-items: baseline;
+        margin: 10rpx 0;
+
+        & > view {
+            overflow: visible;
+        }
+    }
+
+    .Jyo-HTMLView-li-text {
+        align-items: center;
+        line-height: 20px;
+    }
+
+    .Jyo-HTMLView-li-circle {
+        display: inline-flex;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .Jyo-HTMLView-li-square {
+        display: inline-flex;
+        width: 10rpx;
+        height: 10rpx;
+        margin-right: 5px;
+    }
+
+    .Jyo-HTMLView-li-ring {
+        display: inline-flex;
+        width: 10rpx;
+        height: 10rpx;
+        border-radius: 50%;
+        margin-right: 5px;
+        border: 2rpx solid;
+    }
+
+    .Jyo-HTMLView-u {
+        text-decoration: underline;
+    }
+
+    .Jyo-HTMLView-hide {
+        display: none;
+    }
+
+    .Jyo-HTMLView-Text {
+        align-items: center;
+    }
+
+    .Jyo-HTMLView-table {
+        border-top: 1px solid;
+        border-right: 1px solid;
+    }
+
+    .Jyo-HTMLView-tr {
+        display: flex;
+        /*border-right: 1px solid;*/
+        border-bottom: 1px solid;
+        /*border-top: 1px solid;*/
+    }
+
+    .Jyo-HTMLView-th,
+    .Jyo-HTMLView-td {
+        flex: 1;
+        padding: 5px;
+        font-size: 28rpx;
+        border-left: 1px solid;
+        word-break: break-all;
+    }
+
+    .Jyo-HTMLView-td:last {
+        border-top: 1px solid;
+    }
+
+    .Jyo-HTMLView-th {
+        border-top: 1px solid;
+    }
+
+    .Jyo-HTMLView-del {
+        display: inline;
+    }
+
+    .Jyo-HTMLView-center {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.Jyo-Theme-Light {
+    .Jyo-HTMLView {
+        background-color: @light_fontColor2;
+        color: @light_mainFontColor;
+
+        .Jyo-HTMLView-a {
+            color: @light_lightColor;
+        }
+
+        .Jyo-HTMLView-blockquote {
+            background: @light_frameBgColor;
+            border-color: @light_frameBgColor1;
+        }
+
+        .Jyo-HTMLView-code, .Jyo-HTMLView-wxxxcode-style {
+            background: @light_frameBgColor;
+        }
+
+        .Jyo-HTMLView-li-circle, .Jyo-HTMLView-li-square {
+            background-color: @light_mainFontColor;
+        }
+
+        .Jyo-HTMLView-li-ring {
+            border-color: @light_mainFontColor;
+            background-color: @light_fontColor2;
+        }
+
+        .Jyo-HTMLView-table, .Jyo-HTMLView-tr, .Jyo-HTMLView-th,
+        .Jyo-HTMLView-td, .Jyo-HTMLView-td:last, .Jyo-HTMLView-th {
+            border-color: @light_frameBgColor1;
+        }
+
+        .Jyo-HTMLView-th {
+            background: @light_frameBgColor;
+        }
+    }
+}
+
+.Jyo-Theme-Dark {
+    .Jyo-HTMLView {
+        background-color: @dark_fontColor2;
+        color: @dark_mainFontColor;
+
+        .Jyo-HTMLView-a {
+            color: @dark_lightColor;
+        }
+
+        .Jyo-HTMLView-img {
+            filter: brightness(0.8);
+        }
+
+        .Jyo-HTMLView-blockquote {
+            background: @dark_frameBgColor;
+            border-color: @dark_frameBgColor1;
+        }
+
+        .Jyo-HTMLView-code, .Jyo-HTMLView-wxxxcode-style {
+            background: @dark_frameBgColor;
+        }
+
+        .Jyo-HTMLView-li-circle, .Jyo-HTMLView-li-square {
+            background-color: @dark_mainFontColor;
+        }
+
+        .Jyo-HTMLView-li-ring {
+            border-color: @dark_mainFontColor;
+            background-color: @dark_fontColor2;
+        }
+
+        .Jyo-HTMLView-table, .Jyo-HTMLView-tr, .Jyo-HTMLView-th,
+        .Jyo-HTMLView-td, .Jyo-HTMLView-td:last, .Jyo-HTMLView-th {
+            border-color: @light_frameBgColor1;
+        }
+
+        .Jyo-HTMLView-th {
+            background: @dark_frameBgColor;
+        }
+    }
+}

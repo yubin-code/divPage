@@ -1,0 +1,193 @@
+<!-- 辅助小工具  -->
+<template name="layout-tools-gadget">
+  <block wx:for="{{layout.LayoutStyleList}}" wx:key="{{index}}" >
+    <!-- 是否居中  -->
+    <view class="layout-font-align" wx:if="{{layout.Style[item].type == 'tab'}}">
+      <view class="item"
+      catchtap="{{layout.Style[item].click + layout._eventId}}"
+      wx:for="{{layout.Style[item].child}}"
+      wx:key="{{index}}"
+      data-type="{{layout.Style[item].type}}"
+      data-key="{{item}}"
+      data-value="{{index}}"
+      wx:for-item="i"
+      style="color:{{parts[layout.layoutIndex].attr['text-align'] == index ? i.colorSelect : ''}}">
+        <image src="{{ parts[layout.layoutIndex].attr['text-align'] == index ? i.iconSelect : i.iconPath}}" mode='widthFix'></image>
+        {{i.name}}
+      </view>
+    </view>
+    <!-- 字体颜色  -->
+    <view class="layout-color-box"
+    wx:if="{{layout.Style[item].type == 'color'}}">
+      <view class="layout-color-title">{{layout.Style[item].name}}</view>
+      <scroll-view scroll-x="true"
+      class="layout-font-color-scroll">
+        <block wx:for="{{layout.Style[item].list}}" wx:key="{{index}}" wx:for-item="i">
+          <view catchtap="{{layout.Style[item].click + layout._eventId}}"
+          class="font-color {{parts[layout.layoutIndex].attr[layout.Style[item].key] == i ? 'font-color-avtive' : ''}}"
+          data-value="{{i}}"
+          data-key="{{item}}"
+          data-type="{{layout.Style[item].type}}"
+          style="background:{{i}}"></view>
+        </block>
+      </scroll-view>
+    </view>
+
+    <!-- 字体大小 -->
+    <view class='layout-slide' wx:if="{{layout.Style[item].type == 'slider'}}">
+      <view>{{layout.Style[item].front}}</view>
+      <slider bindchange="{{layout.Style[item].click + layout._eventId}}"
+      min="{{layout.Style[item].min}}"
+      max="{{layout.Style[item].max}}"
+      data-type="{{layout.Style[item].type}}"
+      data-key="{{item}}"
+      value="{{parts[layout.layoutIndex].pureAttr[item] || layout.Style[item].defaultValue}}" activeColor="#4685F6"/>
+      <view>{{layout.Style[item].after}}</view>
+    </view>
+  </block>
+<view 
+  wx:if="{{layout.buttonStyle}}"
+  wx:for="{{layout.buttonStyle}}"
+  wx:key="{{index}}">
+   <view class="layout-color-box">
+      <view class="layout-color-title">{{item.title}}</view>
+      <scroll-view scroll-x="true"
+      class="layout-font-color-scroll"
+      wx:if="{{index == 'FontColor' || index == 'bgColor'}}">
+        <block wx:for="{{item.colorList}}" wx:key="{{index}}" wx:for-item="i">
+          <view catchtap="{{item.click + layout._eventId}}"
+          class="font-color {{parts[layout.layoutIndex].btattr[item.type] == i ? 'font-color-avtive' : ''}}"
+          data-color="{{i}}"
+          data-type="{{item.type}}"
+          style="background:{{i}}"></view>
+        </block>
+      </scroll-view>
+    </view>
+    </view>
+</template>
+<!-- 主工具栏  -->
+<template name="layout-tools-main">
+  <view class='layout-footer layout-flex-between'>
+    <block wx:for="{{layout.Menu}}" wx:key="{{index}}" wx:for-item="item">
+      <view class='item'
+      catchtap="{{layout[item.click]}}"
+      data-type='{{index}}'
+      data-mode="0">
+      <image src='{{item.iconPath}}' class="layout-nav-icon" mode='widthFix' wx:if="{{item.iconPath}}"></image>
+      <text>{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+</template>
+
+<template name="layout-tools-auxiliary-below">
+  <!-- 与菜单并级的  -->
+  <block 
+  wx:for="{{layout.tools[layout.layoutType].levelTool}}"
+  wx:key="{{index}}">
+    <view class='layout-slide' wx:if="{{ index == 'boxWidth' }}">
+      <view>窄</view>
+      <slider 
+      bindchange="{{item.click + layout._eventId}}" 
+      min="{{item.min}}" 
+      max="{{item.max}}" 
+      value="{{parts[layout.layoutIndex].pureAttr.width}}"
+      activeColor="#4685F6"/>
+      <view>宽</view>
+    </view>
+    <view class='layout-slide' wx:if="{{ index == 'boxHeight' }}">
+      <view>低</view>
+      <slider 
+      bindchange="{{item.click + layout._eventId}}" 
+      min="{{item.min}}" 
+      max="{{item.max}}" 
+      value="{{parts[layout.layoutIndex].pureAttr.height}}"
+      activeColor="#4685F6"/>
+      <view>高</view>
+    </view>
+  </block>
+</template>
+<!-- 辅助工具栏 -->
+<template name="layout-tools-auxiliary">
+  <block wx:if="{{layout.layoutIndex >= 0 || layout.layoutType =='background'}}">
+    <view class="layout-footer {{layout.Menu[layout.layoutType].startAnimation}} {{layout.animationClass ? layout.Menu[layout.layoutType].endAnimation : ''}}">
+      <view class='layout-auxiliary-main layout-flex layout-flex-between'>
+        <block 
+        wx:for="{{layout.Menu[layout.layoutType].child}}"
+        wx:key="{{index}}"
+        wx:for-item="item"
+        wx:if="{{ layout.layoutIndex >= 0 || layout.bgIndex >= 0 || layout.ChildMenu[item].show }}">
+        <view class='item'
+        data-mode="1"
+        catchtap="{{layout.ChildMenu[item].click + layout._eventId}}"
+        data-key='{{layout.Menu[layout.layoutType].key}}'
+        data-type='{{layout.ChildMenu[item].key}}'
+        data-index="{{index}}">
+        <image src='{{layout.ChildMenu[item].iconPath}}' class="layout-tool-icon" mode='widthFix' wx:if="{{layout.ChildMenu[item].iconPath}}"></image>
+        <text>{{layout.ChildMenu[item].name}}</text>
+        </view>
+        </block>
+      </view>
+      <!-- 跟着辅助工具条时时显示的控制组件  -->
+      <template 
+      is="layout-tools-auxiliary-below" 
+      data="{{layout, parts}}"/>
+      <!-- 背景的html  -->
+      <scroll-view scroll-x class="layout-main-operation-body" wx:if="{{layout.layoutType =='background'}}">
+      <view class="item layout-bg-default"
+      catchtap="{{layout.Menu[layout.layoutType].add + layout._eventId}}"
+      data-mode="0"
+        ><image src="/core/images/bg-add.png"
+        class="bg-add"
+        mode='widthFix'/></view>
+      <view class="item {{(layout.bgIndex == index && 'avtive')}}"
+      catchtap="{{layout.Menu[layout.layoutType].select + layout._eventId}}"
+      wx:for="{{parts}}"
+      data-index="{{index}}"
+      wx:if="{{item.key == 'background'}}"
+      wx:key="{{index}}">
+        <image src="{{item.src}}" mode='widthFix'></image>
+      </view>
+    </scroll-view>
+      <!-- 底部小工具  -->
+      <view class="layout-auxiliary {{layout.ChildMenu[layout.childNavType].startAnimation}} {{layout.animationClass ? layout.ChildMenu[layout.childNavType].endAnimation : ''}}" wx:if="{{layout.layoutIsStyle}}">
+        <template is="layout-tools-gadget" data="{{layout, parts}}"/>
+      </view>
+    </view>
+  </block>
+</template>
+
+<!-- 工具表单组件  -->
+<template name="layout-tools-form">
+  <!-- 添加文字 -->
+  <view class="layout-add-text" wx:if="{{layout.isText}}">
+  <textarea bindconfirm="{{layout.LayoutformText}}"
+  auto-focus="true"
+  fixed="true"
+  name="val"
+  placeholder="请输入文字"
+  value="{{parts[layout.layoutIndex].val || ''}}"
+  maxlength="-1"></textarea>
+  </view>
+</template>
+
+<!-- 加载  -->
+<template name="layout-load">
+  <view wx:if="{{layout.LayoutLoad.show}}">
+    {{layout.LayoutLoad.title}}
+  </view>
+</template>
+
+<!-- 工具  -->
+<template name="layout-tools">
+  <!-- 主工具栏  -->
+  <template is="layout-tools-main" data="{{layout}}"/>
+  <!-- 主菜单操作  -->
+   <!-- <template is="layout-main-operation" data="{{layout, parts}}"/>  -->
+  <!-- 辅助工具栏 -->
+  <template is="layout-tools-auxiliary" data="{{layout, parts}}"/>
+  <!-- 工具表单组件  -->
+  <template is="layout-tools-form" data="{{layout, parts}}"/>
+  <!-- 加载组件  -->
+  <template is="layout-load" data="{{layout, parts}}"/>
+</template>

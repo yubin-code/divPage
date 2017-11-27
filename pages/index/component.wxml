@@ -1,0 +1,22 @@
+<template name="component">
+<view
+  catchtouchstart="moveStart"
+  catchtouchmove="move"
+  catchtouchend="moveEnd"
+  data-index='{{index}}'
+  class="text-style"
+  wx:if='{{comtype == "text"}}'
+  style="top:{{attr.top}}px;left:{{attr.left}}px;{{css}}">
+    文字模块
+  </view>
+  <image
+    catchtouchstart="moveStart"
+    catchtouchmove="move"
+    catchtouchend="moveEnd"
+    src="{{src}}"
+    data-index='{{index}}'
+    mode='widthFix'
+    class="image-style"
+    wx:if='{{comtype == "images"}}'
+    style="top:{{attr.top}}px;left:{{attr.left}}px;{{css}}"/>
+</template>

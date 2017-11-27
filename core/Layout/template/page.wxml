@@ -1,0 +1,75 @@
+<!--添加表单  -->
+<template name="layout-model-form">
+<!--自定义模型  -->
+<scroll-view scroll-y class="layout-windows start-animation-{{layout.EntryMode}} {{layout.animationClass ? 'end-animation-' + layout.EntryMode : ''}}">
+    <form bindsubmit="{{layout[layout.myModel.submit]}}">
+    <view class="layout-model-form-setup"
+    wx:for="{{layout.myModel.field}}"
+    wx:key="{{index}}">
+      <view class="form-group"
+      wx:if="{{(item.type=='input' || item.type=='button') && !item.system}}">
+        <view class="lable">{{ item.type== 'button' ? '按钮文字：' : '名称：' }}</view>
+        <view class="value">
+          <input data-index="{{index}}" bindblur="{{layout[layout.myModel.bindblur]}}" name="{{item.key}}" placeholder="{{ item.placeholder }}" value="{{ item.value }}"/>
+        <input name="{{item.key + '_type'}}" value="{{item.type}}" class="layout-hide"/>
+        </view>
+      </view>
+      <view class="form-group form-group-between" 
+      wx:if="{{item.option}}"
+      data-key="{{index}}"
+      catchtap="{{layout[item.optionClick]}}">
+        <input  name="{{item.key + '_checkKey'}}" value="{{item.option[item.optionIndex || 0].checkKey}}"  class="layout-hide"/>
+        <view class="lable">类型：</view>
+        <view class="box">{{ item.option[item.optionIndex || 0].name }}</view>
+      </view>
+      <view class="form-group" 
+      wx:if="{{item.submit}}">
+        <view class="lable">成功提示：</view>
+        <view class="value">
+          <input data-index="{{index}}" data-key="prompt" bindblur="{{layout[layout.myModel.bindblur]}}" name="{{item.key + '_prompt'}}" value="{{ item.prompt }}"/>
+        </view>
+      </view>
+    
+    <button class='layout-model-form-setup-btn'
+    wx:if="{{item.system && item.type=='button'}}"
+    catchtap="{{layout[item.click] || ''}}"
+    formType="{{item.formType || ''}}">{{item.name}}</button>
+    </view>
+
+    <view class="layout-fengfa">
+      <view class="fengfa-title" catchtap="{{layout[layout.myModel.more]}}">更多设置</view>
+    </view>
+    </form>
+  </scroll-view>
+</template>
+
+
+
+<!--添加视频或电话  -->
+<template name="layout-form">
+<form 
+  bindsubmit="{{layout[layout.myForm.submit]}}"
+  class="layout-form">
+  <view
+    wx:for="{{layout.myForm.field}}"
+    wx:key="{{index}}"
+    class="layout-from-group"
+    style="{{item.type == 'switch' ? 'border:none;': ''}}">
+    <input type="{{item.inputType || 'text'}}"
+    wx:if="{{item.type == 'input'}}"
+    name="{{item.key}}"
+    value="{{item.value || ''}}"
+    placeholder='{{item.placeholder}}' />
+    <view wx:if="{{item.type == 'switch'}}">
+      <switch name="{{item.key}}" checked="{{item.value || false}}"/>
+      自动播放
+    </view>
+    <button
+    wx:if="{{item.type == 'button'}}"
+    formType="{{item.formType || ''}}"
+    catchtap="{{layout[item.click] || ''}}">
+      {{item.name}}
+    </button>
+  </view>
+</form>
+</template>

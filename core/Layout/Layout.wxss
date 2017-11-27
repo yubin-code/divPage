@@ -1,0 +1,581 @@
+slider {
+  margin:0 20rpx;
+}
+.layout-hide{
+  display: none;
+}
+.layout-input {
+  color: #666;
+  height: 80rpx;
+  line-height: 80rpx;
+  border:1px solid #ccc;
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+}
+.layout-button {
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 10rpx;
+  border:none;
+  color: #666;
+  padding: 0 20rpx;
+  background: red;
+}
+.layout-button-cop {
+  padding: 0 28rpx;
+  margin:0;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 10rpx;
+  text-align: left;
+  display: block;
+  background:#F8F8F8;
+}
+.layout-toolSide{
+  position: absolute;
+  z-index:999999999999999999;
+  width: 60rpx;
+  right:20rpx;top:20rpx;
+  opacity: 0.8;
+}
+.layout-toolSide image{
+  width: 60rpx;
+  margin-top:10rpx;
+}
+.layout-div {
+  position: absolute;
+  top:0;bottom: 0;
+  left: 0;right: 0;
+}
+.layout-body {
+  position: absolute;
+  top:0;bottom: 98rpx;
+  left: 0;right: 0;
+  z-index: 10;
+  overflow: hidden;
+}
+.layout-btn {
+  font-size: 30rpx;
+  color:#999;
+  margin:0;
+  background: none; 
+}
+.layout-btn::after{
+  border:none;
+}
+
+/*可拖动组件  */
+.layout-text-style,
+.layout-img-style,
+.layout-button-style,
+.layout-video-style,
+.layout-myform-style,
+.layout-form-style { 
+ position: absolute;
+ box-sizing: border-box;
+ border:1px solid transparent;
+}
+/*字体默认样式  */
+.layout-text-style {
+  width: 95%;
+  margin:0 10px;
+  word-wrap:break-word;
+}
+.layout-text-style text{
+  height: 10px;
+  line-height: 30rpx;
+}
+.layout-myform-style input{
+  border:1rpx solid #4A4A4A;
+  height: 70rpx;
+  width: auto;
+  font-size: 28rpx;
+  color:#9B9B9B;
+  padding-left: 20rpx;
+  margin: 30rpx 0;
+}
+.layout-myform-style button{
+  background: #1D203B;
+  height: 70rpx;
+  line-height: 70rpx;
+  width: auto;
+  margin: 30rpx 0;
+  color: #fff;
+  font-size: 28rpx;
+}
+.layout-myform-style button::after{
+  border: none;
+}
+.layout-auxiliary {
+  width: 100%;
+}
+
+.layout-add-text {
+  display: block;
+  position: fixed;
+  left:0;right:0;
+  bottom:0;
+  background: #fff;
+  border-top:1px solid #f2f2f2;
+}
+
+.layout-add-text .layout-add-header {
+  color: #999;
+  padding:0 20rpx;
+  border-top:1px solid #f2f2f2;
+  border-bottom:1px solid #f2f2f2;
+  display: flex;
+  justify-content: flex-end;
+}
+.layout-add-text textarea{
+  height: 200rpx;
+  padding: 20rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  width:100%;
+  color: #999;
+  box-sizing: border-box;
+}
+
+/* 组件选中效果  */
+.layout-avtive {
+  border:1px solid #3E79FF;
+}
+
+.layout-button-style::after{
+  border:none;
+}
+.layout-flex {
+  display: flex;
+  justify-content: flex-start;
+}
+.layout-flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+.layout-video-style {
+  position: relative;
+  width: 600rpx;
+}
+.layout-video, .layout-video-img {
+  vertical-align: middle;
+  width:100%;
+  height:100%;
+}
+.layout-mask {
+  position: absolute;
+  left:0;right: 0;
+  top:0;bottom: 0;
+  /* background: transparent; */
+  background: red;
+  z-index: 9999999999999999;
+}
+.layout-tools {
+  position: absolute;
+  bottom: 0;
+  left: 0;right: 0;
+  height: 98rpx;
+  z-index: 99999999999999;
+}
+.layout-form-explain {
+  color: #9B9B9B;
+  font-size: 22rpx;
+  line-height: 32rpx;
+  padding:10rpx 50rpx;
+}
+.layout-fengfa {
+  padding: 20rpx 50rpx;
+}
+.fengfa-title {
+  font-size: 30rpx;
+  color:#1D203B;
+}
+/*设置  */
+.layout-model-form-setup {
+  margin-top:40rpx;
+}
+.layout-model-form-setup .form-group{
+  display: flex;
+  padding:0 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #F7F7F7;
+  margin-bottom: 10rpx;
+}
+.layout-model-form-setup .form-group.form-group-between{
+  justify-content: space-between;
+}
+.layout-model-form-setup .form-group .lable{
+  padding-right:20rpx;
+  font-size:28rpx;
+  color:#666;
+}
+.layout-model-form-setup .form-group .value{
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #1D203B;
+  flex: 1;
+}
+.layout-model-form-setup .form-group .box {
+  font-size: 28rpx;
+  color: #1D203B;
+}
+.layout-model-form-setup .form-group .value input{
+  flex: 1;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #1D203B;
+}
+.layout-model-form-setup-btn {
+  margin:20rpx 50rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  border-radius: 0;
+  background: #1D203B;
+  color:#fff;
+}
+.layout-model-form-setup-btn::after{
+  border:none;
+}
+.layout-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;right: 0;
+  background: #1D203B;
+  color:#fff;
+  font-size: 35rpx;
+  padding: 10rpx 0 5rpx 0;
+}
+
+
+.layout-footer .item {
+   padding: 0 20rpx;
+   text-align: center;
+}
+.layout-footer .layout-nav-icon {
+  width: 54rpx;
+  height: 54rpx;
+  display: block;
+}
+.layout-footer .layout-tool-icon {
+  width: 42rpx;
+  height: 42rpx;
+  display: block;
+}
+.layout-footer .item text {
+  display: block;
+  line-height: 30rpx;
+  font-size: 20rpx;
+}
+.layout-auxiliary-main{
+  padding:0 20rpx;
+}
+.layout-auxiliary-main .item {
+  padding-top:6rpx;
+}
+.layout-auxiliary-main .item text{
+  padding-top:10rpx;
+  font-size: 20rpx;
+}
+
+/* 编辑样式  */
+.layout-font-align {
+  display: flex;
+  justify-content: space-between;
+  padding:20rpx 0;
+  font-size: 20rpx;
+}
+.layout-font-align image{
+  width: 34rpx;
+  height: 34rpx;
+  vertical-align: middle;
+}
+.layout-color-box {
+  display: flex;
+  padding:0 20rpx;
+}
+.layout-font-color-scroll {
+  padding:10rpx 0;
+  height: 60rpx;
+  white-space: nowrap;
+  width:620rpx;
+}
+.font-color {
+  width: 52rpx;
+  height: 52rpx;
+  margin-right: 16rpx;
+  display: inline-block;
+  border-radius: 100%;
+  border:1px solid #1D203B;
+}
+.font-color-avtive {
+  border:1px solid #fff;
+}
+.layout-color-title {
+  flex: 1;
+  font-size: 20rpx;
+  line-height: 80rpx;
+}
+
+/* 滑动板块  */
+.layout-slide {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20rpx;
+  padding: 28rpx 20rpx 15rpx 20rpx;
+}
+
+.layout-slide slider{
+  width: 100%;
+}
+
+/* 主菜单操作部分  */
+.layout-main-operation {
+  position: absolute;
+  left:0;right:0;
+  bottom:0;
+  background: #fff;
+}
+.layout-main-operation-header {
+  background: #1D203B;
+  display: flex;
+  height: 98rpx;
+  justify-content: space-between;
+  text-align: center;
+  padding:0 48rpx;
+  padding-top:10rpx;
+}
+.layout-main-operation-header image {
+  display: block;
+}
+.layout-main-operation-header text {
+  font-size: 20rpx;
+  color:#fff;
+}
+
+.layout-main-operation-body {
+  background: #fff;
+  box-sizing: border-box;
+  margin:10rpx 0;
+  margin-bottom: -5rpx;
+  padding:20rpx 0;
+  width: 100%;
+  height: 184rpx;
+  white-space: nowrap;
+}
+.layout-operation-icon {
+  width: 42rpx;
+  height: 42rpx;
+}
+.layout-main-operation-body .item {
+  width: 116rpx;
+  height: 180rpx;
+  line-height: 180rpx;
+  display: inline-block;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.18);
+  margin-right:20rpx;
+  border:1px solid #fff;
+  overflow: hidden;
+}
+.layout-main-operation-body .item.avtive {
+  border:1px solid #1D203B;
+}
+.layout-main-operation-body .item image{
+  width: 116rpx;
+}
+.layout-main-operation-body .layout-bg-default{
+  box-shadow:none;
+  display: flex;
+  float: left;
+  justify-content: center;
+  align-content: center;   
+}
+.layout-main-operation-body .layout-bg-default .bg-add {
+  width: 48rpx;
+  height: 48rpx;
+  margin-top:48rpx;
+  display: inline-block;
+}
+.layout-myform {
+  display: block;
+}
+.bg-background {
+  max-width: 750rpx;
+  vertical-align: middle;
+}
+.layout-windows{
+  position: fixed;
+  top:0;bottom: 0;
+  left:0;right: 0;
+  z-index:999999999999;
+  background: #fff;
+}
+
+.layout-windows-left{
+  position: fixed;
+  top:0;bottom: 0;
+  left:0;right: 0;
+  z-index:9999999999999;
+  background: #fff;
+}
+.windows-title {
+  padding:20rpx 50rpx;
+  font-size: 35rpx;
+  color:#333;
+}
+.windows-left-form-group {
+  padding:0 50rpx;
+  margin-bottom:50rpx;
+}
+.windows-left-form-group .title {
+  color:#333;
+  padding:10rpx 0;
+  font-size: 35rpx;
+}
+.windows-left-form-group .text{
+  font-size: 28rpx;
+  color: #999;
+  padding-top:10rpx;
+  display: inline-block;
+}
+.windows-left-form-group textarea{
+  width: 100%;
+  border:1px solid #eee;
+  padding: 20rpx;
+  box-sizing: border-box;
+  color: #666;
+  font-size: 30rpx;
+  height: 200rpx;
+}
+
+.layout-form{
+  font-size: 28rpx;
+  color: #9B9B9B;
+  display: flex; 
+  justify-content: center; 
+  padding-top:80rpx;
+}
+.layout-form .layout-from-group {
+  border:1rpx solid #4A4A4A;
+  background: #fff;
+  margin-top: 40rpx;
+  color: #9B9B9B;
+}
+.layout-form .layout-from-group > input{
+  height: 70rpx;
+  width:600rpx;
+  line-height: 70rpx;
+  padding:10rpx 40rpx;
+  box-sizing: border-box;
+}
+.layout-form .layout-from-group > button{
+  border-radius: 0;
+  font-size: 28rpx;
+  background: #1D203B;
+  color:#fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.layout-form button:after{
+  border:none;
+}
+.layout-model-form {
+  display: flex;
+  padding-top:80rpx;
+  justify-content: center; 
+  flex-wrap:wrap;
+}
+.layout-model-form .layout-from-group {
+  width: 600rpx;
+  margin-top: 40rpx;
+}
+.layout-model-form .layout-from-group > .model-form-value{
+  height: 70rpx;
+  width:600rpx;
+  color:#9B9B9B;
+  line-height: 54rpx;
+  padding:10rpx 40rpx;
+  box-sizing: border-box;
+  border:1px solid #4A4A4A;
+  font-size: 28rpx;
+}
+
+.layout-model-form .layout-from-group > button{
+  border-radius: 0;
+  font-size: 28rpx;
+  background: #1D203B;
+  color:#fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+/* 向上滑动  */
+@keyframes upward{
+  from {transform:translate(0,100%);}
+  to {transform:translate(0,0);}
+}
+
+/* 向下滑动  */
+@keyframes down{
+  from {transform:translate(0,0);}
+  to {transform:translate(0,100%);}
+}
+
+/* 往左边  */
+@keyframes left{
+  from {transform:translate(100%,0);}
+  to {transform:translate(0,0);}
+}
+
+/* 往右边  */
+@keyframes right{
+  from {transform:translate(0,0);}
+  to {transform:translate(100%, 0);}
+}
+
+/* 从低变高  */
+@keyframes max-height{
+  from {height:0;}
+  to {height:auto;} 
+}
+
+/* 从低变高  */
+ @keyframes min-height{
+  from {height:100%;}
+  to {height:0;} 
+} 
+/* 动画  */
+.layout-animation-max-height{
+  animation: max-height 0.3s;
+}
+.layout-animation-min-height{
+  animation: min-height 0.3s;
+}
+.layout-animation-upward{
+  animation: upward 0.3s; 
+}
+.layout-animation-down {
+  animation: down 0.3s;
+}
+
+/*从下往上  */
+.start-animation-top{
+   animation: upward 0.3s; 
+}
+.end-animation-top{
+  animation: down 0.3s;
+}
+
+/*从右往左  */
+.start-animation-left{
+   animation: left 0.3s; 
+}
+.end-animation-left{
+  animation: right 0.3s;
+}

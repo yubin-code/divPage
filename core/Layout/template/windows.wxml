@@ -1,0 +1,50 @@
+<import src="./page.wxml"/>
+<!--窗口  -->
+<template name="layout-windows">
+  <scroll-view scroll-y
+  wx:if="{{layout.route == '/form' || layout.route == '/form/more'}}"
+  class="layout-windows start-animation-{{layout.EntryMode}} {{(layout.windowAnimation && layout.route == '/form') ? 'end-animation-' + layout.EntryMode : ''}}">
+    <!-- 添加表单  -->
+    <template is="layout-model-form" wx:if="{{layout.layoutType == 'form'}}" data="{{ layout, parts }}"/>
+    <!-- 添加视频电话  -->
+    <template is="layout-form"
+    wx:if="{{layout.layoutType == 'video' || layout.layoutType == 'tel'}}"
+    data="{{ layout, parts }}"/>
+  </scroll-view>
+
+
+<!--更多设置  -->
+<view scroll-y
+  wx:if="{{layout.route == '/form/more'}}"
+   class="layout-windows start-animation-{{layout.EntryMode}} {{(layout.windowAnimation && layout.route == '/form/more') ? 'end-animation-' + layout.EntryMode : ''}}">
+    <form bindsubmit="{{layout[layout.myModel.distribute]}}">
+      <view class="windows-title">分发设置</view>
+      <view class="windows-left-form-group">
+        <view class="title">分发手机 <view class="text">(配置需要接收表单数据的手机号码)</view></view>
+        <textarea name="tels" value="{{layout.myModel.tels || ''}}"></textarea>
+        <view class="text">多个手机号之间请用英文逗号分隔，默认轮流分发。</view>
+      </view>
+      <view class="windows-left-form-group">
+        <view class="title">短信信息 <view class="text">（配置需要接收短信的信息模板）</view></view>
+        <textarea name="message" value="{{layout.myModel.message || ''}}"></textarea>
+        <view>
+          <view class="text">模板中变量含义说明：</view>
+        </view>
+        <view>
+          <view class="text">${pageName} 落地页名称;</view>
+        </view>
+        <view>
+          <view class="text">${channel} 渠道名称;</view>
+        </view>
+        <view>
+          <view class="text">${user} 输入框1的名称;</view>
+        </view>
+        <view>
+          <view class="text">${tel} 输入框2的名称;</view>
+        </view>
+      </view>
+      <button class='layout-model-form-setup-btn'
+    formType="submit">确定</button>
+    </form>
+  </view> 
+</template>

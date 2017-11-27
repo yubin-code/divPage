@@ -1,0 +1,1593 @@
+<!-- HTML视图组件 -->
+<template name="Jyo-HTMLView">
+  <view class="{{_theme}}">
+    <view id="{{_id}}" class="Jyo-HTMLView" wx:if="{{_isVisible}}" data-id="{{_id}}" style="width:{{_width}};padding:0 {{_padding}};">
+      <block wx:for="{{nodes}}" wx:key="">
+        <template is="Jyo-HTMLView0" data="{{item}}" />
+      </block>
+    </view>
+  </view>
+</template>
+
+
+
+<!--基础元素-->
+<template name="Jyo-HTMLView-Video">
+  <view bindtap="{{item.tapEvent}}" wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}">
+    <video class="{{item.cls}} Jyo-HTMLView-{{item.tag}}-video" src="{{item.attr.src}}"></video>
+  </view>
+</template>
+
+<template name="Jyo-HTMLView-Img">
+  <image wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.src}}" data-idx="{{item.ii}}" src="{{item.attr.src}}" mode="aspectFit" bindload="{{item.imageLoadEventId}}" bindtap="{{item.imageClickEventId}}"
+    mode="{{item.processImg?'widthFix':'scaleToFill'}}" style="width:{{item.width}}px;{{item.styleStr}}" />
+</template>
+
+<template name="Jyo-HTMLView-Text">
+  <view bindtap="{{item.tapEvent}}" wx:if="{{item.hidden!=true}}" class="Jyo-HTMLView-inline" style="{{item.styleStr}}">
+    <block class="{{item.text == '\\n' ? 'Jyo-HTMLView-hide':''}}" wx:if="{{item.n== 'txt'}}">{{item.txt}}</block>
+  </view>
+</template>
+
+
+
+<!--循环模版-->
+<template name="Jyo-HTMLView0">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView1" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView1" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView1" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView1" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView1" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView1" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView1">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView2" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView2" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView2" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView2" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView2" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView2" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView2">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView3" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView3" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView3" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView3" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView3" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView3" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView3">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView4" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView4" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView4" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView4" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView4" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView4" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView4">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView5" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView5" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView5" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView5" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView5" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView5" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView5">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView6" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView6" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView6" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView6" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView6" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView6" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView6">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView7" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView7" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView7" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView7" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView7" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView7" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView7">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView8" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView8" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView8" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView8" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView8" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView8" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView8">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView9" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView9" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView9" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView9" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView9" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView9" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView9">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView10" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView10" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView10" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView10" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView10" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView10" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView10">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView11" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView11" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView11" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView11" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView11" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView11" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView11">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView12" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView12" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView12" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView12" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView12" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView12" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView12">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView13" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView13" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView13" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView13" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView13" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView13" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView13">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView14" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView14" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView14" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView14" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView14" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView14" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView14">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView15" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView15" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView15" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView15" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView15" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView15" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView15">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView16" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView16" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView16" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView16" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView16" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView16" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView16">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView17" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView17" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView17" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView17" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView17" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView17" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView17">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView18" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView18" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView18" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView18" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView18" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView18" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView18">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView19" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView19" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView19" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView19" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView19" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView19" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>
+
+<template name="Jyo-HTMLView19">
+  <!--判断是否是标签节点-->
+  <block wx:if="{{item.n== 'el'}}">
+    <block wx:if="{{item.tag == 'button'}}">
+      <button type="default" bindtap="{{item.tapEvent}}" size="mini">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView20" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block wx:elif="{{item.tag == 'li'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li" style="{{item.styleStr}}">
+        <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-inner">
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-circle"></view>
+          </view>
+          <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-li-text">
+            <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+              <template is="Jyo-HTMLView20" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block wx:elif="{{item.tag == 'video'}}">
+      <template is="Jyo-HTMLView-Video" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block wx:elif="{{item.tag == 'img'}}">
+      <template is="Jyo-HTMLView-Img" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block wx:elif="{{item.tag == 'a'}}">
+      <view wx:if="{{item.hidden!=true}}" bindtap="{{item.linkClickEventId}}" class="Jyo-HTMLView-inline {{item.cls}} Jyo-HTMLView-{{item.tag}}" data-src="{{item.attr.href}}" data-target="{{item.attr.target}}" style="{{item.styleStr}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView20" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{item.tag == 'table'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView20" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--其他块级标签-->
+    <block wx:elif="{{item.tt == 'block'}}">
+      <view wx:if="{{item.hidden!=true}}" class="{{item.cls}} Jyo-HTMLView-{{item.tag}}" style="{{item.styleStr}}" bindtap="{{item.tapEvent}}">
+        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+          <template is="Jyo-HTMLView20" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view wx:else class="{{item.cls}} Jyo-HTMLView-{{item.tag}} Jyo-HTMLView-{{item.tt}}" style="{{item.styleStr}}">
+      <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+        <template is="Jyo-HTMLView20" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block wx:elif="{{item.n== 'txt'}}">
+    <!--如果是，直接进行-->
+    <template is="Jyo-HTMLView-Text" data="{{item}}" />
+  </block>
+
+</template>

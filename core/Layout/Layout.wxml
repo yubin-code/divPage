@@ -1,0 +1,30 @@
+<import src="./template/layout.wxml"/>
+<import src="./template/tool.wxml"/>
+<import src="./template/windows.wxml"/>
+<template name="layout-div">
+  <view class="layout-div">
+    <scroll-view
+    class="layout-body"
+    scroll-y="{{layout.isScroll}}"
+    bindscroll="{{layout.LayoutScroll}}"
+    catchtap="{{layout.LayoutScrollClick}}"
+    style="bottom:{{layout.mode ? '98rpx' : 0}}">
+      <template is="layout" wx:key='{{item.id}}' wx:for='{{parts}}' data="{{...layout, item, index}}"/>
+    </scroll-view>
+    <!-- 底部工具导航  -->
+    <view class="layout-tools" wx:if="{{layout.mode}}">
+      <template is="layout-tools" data="{{layout, parts}}"/>
+    </view>
+  </view>
+  <!--侧边工具  -->
+   <view class="layout-toolSide">
+    <image src='/core/images/set.png'
+    mode='widthFix'/>
+    <image src='/core/images/preview.png'
+    catchtap='{{layout.LayoutPreview}}'
+    mode='widthFix'/>
+    <image src='/core/images/save.png' mode='widthFix'/>
+  </view> 
+  <!--窗口  -->
+   <template is="layout-windows" data="{{ layout, parts }}"/> 
+</template>
