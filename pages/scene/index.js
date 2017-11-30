@@ -9,5 +9,6 @@ Page({
       path: '/pages/index/index',
     };
   },
-  onLoad: function () {},
+  onLoad: function () {
+  },
 })

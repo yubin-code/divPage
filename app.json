@@ -1,7 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/divPage/index",
+    "pages/scene/index",
+    "pages/sceneSet/index",
+    "pages/me/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

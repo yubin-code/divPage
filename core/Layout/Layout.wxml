@@ -17,14 +17,25 @@
     </view>
   </view>
   <!--侧边工具  -->
-   <view class="layout-toolSide">
-    <image src='/core/images/set.png'
+   <view class="layout-toolSide"
+   wx:if="{{layout.mode && !layout.LayoutLoad.show}}">
+    <navigator url="/pages/sceneSet/index">
+      <image src='/core/images/set.png'
     mode='widthFix'/>
+    </navigator>
     <image src='/core/images/preview.png'
     catchtap='{{layout.LayoutPreview}}'
     mode='widthFix'/>
-    <image src='/core/images/save.png' mode='widthFix'/>
+    <image src='/core/images/save.png'
+    mode='widthFix'
+    catchtap='{{layout.LayoutSave}}'/>
   </view> 
+
+  <view class="edit"
+  wx:if="{{!layout.mode}}"
+  catchtap='{{layout.LayoutPreview}}'>
+    编辑<image src='/core/images/edit.png'/>
+  </view>
   <!--窗口  -->
    <template is="layout-windows" data="{{ layout, parts }}"/> 
 </template>

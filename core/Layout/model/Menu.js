@@ -89,9 +89,6 @@ Menu.add("视频", "video", {
   style: [ "width", "height"],
 });
 
-
-console.log(Menu._child)
-
 module.exports = Menu
 
 

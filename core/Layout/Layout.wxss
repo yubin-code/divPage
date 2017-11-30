@@ -1,6 +1,38 @@
 slider {
   margin:0 20rpx;
 }
+.edit {
+  opacity: 0.8;
+  background: #4685F6;
+  border-radius: 100px;
+  width: 144rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 24rpx;
+  position: fixed;
+  bottom: 80rpx;
+  left:50%;
+  margin-left: -72rpx;
+  z-index: 9999999;
+}
+.edit image{
+  width: 24rpx;
+  height: 24rpx;
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+.layout-load {
+  position: fixed;
+  color: #666;
+  left:0;right:0;
+  bottom: 0;top:0;
+  background: rgba(255,255,255,0.5);
+  text-align: center;
+  line-height: 300rpx;
+  z-index: 99999999;
+}
 .layout-hide{
   display: none;
 }
@@ -41,6 +73,7 @@ slider {
 }
 .layout-toolSide image{
   width: 60rpx;
+  height: 60rpx;
   margin-top:10rpx;
 }
 .layout-div {

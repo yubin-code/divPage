@@ -1,11 +1,28 @@
 /**app.wxss**/
 @import "./core/Layout/Layout.wxss";
-.container {
-  height: 100%;
+
+.tab-bar {
+  position: absolute;
+  left: 0;right: 0;
+  bottom: 0;
+  height: 98rpx;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  background: #1D203B;
+  padding: 0 30rpx;
+  overflow: hidden;
+}
+.tab-bar > .item {
+  width: 100rpx;
+  color: #fff;
+  font-size: 20rpx;
+  height: 98rpx;
+  margin-top:8rpx;
   box-sizing: border-box;
-} 
+  text-align: center;
+}
+
+.tab-bar > .item image {
+  width: 50rpx;
+  height: 50rpx;
+}

@@ -1,0 +1,4 @@
+<import src="../../core/Layout/Layout.wxml"/>
+<view class="body">
+  <template is="layout-div" data="{{layout, parts}}"/>
+</view>

@@ -1,0 +1,34 @@
+<form bindsubmit="formSubmit">
+  <view class="form">
+    <view class="group">
+      <view class="lable">分享标题</view>
+      <view class="input">
+      <input name="title" value="{{title || ''}}" placeholder="请输入分享标题"/>
+      </view>
+    </view>
+
+    <view class="group">
+      <view class="lable">分享描述</view>
+      <view class="input">
+      <input name="describe" value="{{describe || ''}}" placeholder="请输入分享描述"/>
+      </view>
+    </view>
+
+    <view class="group">
+      <view class="lable">分享封面</view>
+      <view class="img" catchtap='getImg'>
+        <view class="images">
+          <image src="{{image}}" mode="widthFix" wx:if="{{image}}"/>
+        </view>
+        <view class="p">推荐尺寸430X336，或等比例尺寸</view>
+      </view>
+    </view>
+    
+    <view class="group-content">
+      <view class="lable">分享封面</view>
+      <switch name="cover" checked="{{cover || ''}}" />
+    </view>
+
+    <button formType="submit" class="submit">保存</button>
+  </view>
+</form>

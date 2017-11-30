@@ -1,4 +1,26 @@
-<import src="../../core/Layout/Layout.wxml"/>
-<view class="body">
-  <template is="layout-div" data="{{layout, parts}}"/>
-</view>
+<import src="../template/bar.wxml"/>
+<scroll-view scroll-y class="scroll-view">
+  <view class="index-list">
+    <navigator pen-type="navigate"
+    url="/pages/divPage/index?mode=true"
+    hover-class="navigator-hover"
+    class="item">
+      <view class="img">
+        <image src='/images/upset.png' style="height:250rpx;"/>
+      </view>
+      <view class="text">创建空场景</view>
+    </navigator>
+    <navigator class="item"
+    pen-type="navigate"
+    url="/pages/divPage/index?mode=false"
+    wx:for="1234567890123456789"
+    wx:key="{{index}}">
+      <view class="img">
+        <image src='/images/upset.png' mode='widthFix'/>
+      </view>
+      <view class="text">add</view>
+    </navigator>
+  </view>
+</scroll-view>
+<import src="../template/bar.wxml"/>
+<template is="tabBar"/>

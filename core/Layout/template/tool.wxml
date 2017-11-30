@@ -173,7 +173,8 @@
 
 <!-- 加载  -->
 <template name="layout-load">
-  <view wx:if="{{layout.LayoutLoad.show}}">
+  <view class='layout-load'
+  wx:if="{{layout.LayoutLoad.show}}">
     {{layout.LayoutLoad.title}}
   </view>
 </template>

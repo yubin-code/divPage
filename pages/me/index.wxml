@@ -1,0 +1,24 @@
+<import src="../template/bar.wxml"/>
+<scroll-view scroll-y class="scroll-view">
+  <view class="header">
+    <view class="banner">
+      <image src='http://img0.imgtn.bdimg.com/it/u=1769868592,214736150&fm=27&gp=0.jpg'/>
+      <view class="text">章三</view>
+    </view>
+    <view class="ul">
+      <view class="li">
+        <view class="num">8</view>
+        <view class="scene">总场景</view>
+      </view>
+      <view class="li">
+        <view class="num">3</view>
+        <view class="scene">使用中</view>
+      </view>
+      <view class="li">
+        <view class="num">200</view>
+        <view class="scene">线索书</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<template is="tabBar"/>

@@ -1,0 +1,17 @@
+<import src="../template/bar.wxml"/>
+<scroll-view scroll-y class="scroll-view">
+  <view class="index-list">
+    <view class="item">
+      <view class="img">
+        <image src='http://img0.imgtn.bdimg.com/it/u=1769868592,214736150&fm=27&gp=0.jpg'/>
+      </view>
+      <view class="content">
+        <view class="title">模版名称</view>
+        <view class="describe">您还没有添加</view>
+        <view class="tool">浏览次：22</view>
+      </view>
+      <view class="status">使用中</view>
+    </view>
+  </view>
+</scroll-view>
+<template is="tabBar"/>

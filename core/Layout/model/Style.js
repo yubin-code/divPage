@@ -96,8 +96,6 @@ Style.add("字体大小", "font-size", {
 });
 Style.add("背景", "background", { type: 'color', list });
 
-console.log(Style._data)
-
 module.exports = Style
 
 

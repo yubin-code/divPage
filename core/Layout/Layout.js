@@ -3,7 +3,10 @@ import Style from './model/Style';
 import Model from './model/Model'; 
 import Menu from './model/Menu';
 import Comp from './model/Comp';
-import { components, tools } from './model/LayoutComponents';
+
+const setData = (k, v) => wx.setStorageSync(k, v)
+const getData = k => wx.getStorageSync(k)
+
 const checkIsNull = (o) => typeof o !== "undefined" && o !== '';
 const showModal = (o) => {
   wx.showModal({
@@ -50,6 +53,7 @@ class Layout extends Base {
     this.isScroll = true;
     this.Zindex = 100;
     this.route = "";
+    this.LayoutLoad = {}
     // this.tools = this.tool;
     // 开始拖动
     this.LayoutMoveStart = "LayoutMoveStart" + this._eventId;
@@ -193,6 +197,22 @@ class Layout extends Base {
       this.isText = false;
       this.update();
     }
+
+    // 保存页面
+    this.LayoutSave = "LayoutSave" + this._eventId;
+    page[this.LayoutSave] = e => {
+      let data = getData("cover")
+      this.LayoutLoad = {
+        show: true,
+        title: "页面数据保存中"
+      }
+      this.update();
+      typeof this.save == "function" && this.save.call(this, data, () =>{
+        this.LayoutLoad = { show: false }
+        this.update();
+      });
+    }
+
     // 下拉选择性
     this.optionClick = "optionClick" + this._eventId;
     page[this.optionClick] = e => {
@@ -363,6 +383,13 @@ class Layout extends Base {
 
       // 具体的行为
     }
+  };
+
+
+  // 初始化数据结构
+  init(data) {
+    this.mode = (data.mode == 'true' ? true : false)
+    this.update();
   };
   // 动画结束
   animationEnd(){
@@ -601,7 +628,6 @@ class Layout extends Base {
     let style = this.getNewStyle({ "z-index": --this.Zindex });
     this.iscallback(this.updataStyle, style);
   }
-
   // 删除元素
   del(e) {
     prompt({

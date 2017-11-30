@@ -1,0 +1,42 @@
+page {
+  background: #f2f2f2;
+}
+.scroll-view {
+  position: absolute;
+  left:0;right:0;
+  top:0;bottom: 98rpx;
+}
+.header .banner {
+  padding-top:30rpx;
+  height: 260rpx;
+  background: #009afb;
+  text-align: center;
+  color: #fff;
+  font-size: 30rpx;
+}
+.header .banner image {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 100%;
+}
+.header .banner .text {
+  padding: 20rpx 0;
+}
+.ul {
+  width: 750rpx;
+  display: flex;
+  background: #fff;
+  padding: 0;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.ul .li {
+  flex: 1;
+  color: #666;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  text-align: center;
+}
+.ul .li .scene {
+  margin-top:10rpx;
+}

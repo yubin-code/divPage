@@ -1,0 +1,65 @@
+.form {
+  margin-top:40rpx;
+  padding: 20rpx 30rpx;
+  font-size: 35rpx;
+  color: #666;
+}
+
+.group {
+  display: flex;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  justify-content: space-between;
+  padding-bottom: 20rpx;
+}
+
+.group .lable {
+  width: 160rpx;
+  text-align: left;
+  color: #333;
+}
+.group .input {
+  flex: 1;
+  color: #999;
+  margin-left: 20rpx;
+}
+.group .input input{
+  line-height: 60rpx;
+}
+
+.group .images {
+  width: 430rpx;
+  min-height: 180rpx;
+  background: #f2f2f2;
+}
+.group .img {
+  flex: 1;
+}
+.group .img image{
+  width: 430rpx;
+  /* height: 336rpx; */
+  vertical-align: middle;
+}
+.group .img .p{
+  color: #999;
+}
+
+.group-content {
+  display: flex;
+  height: 100rpx;
+  line-height: 100rpx;  
+  font-size: 30rpx;
+  border-top:1rpx solid #f2f2f2;
+  border-bottom:1rpx solid #f2f2f2;
+  justify-content: space-between;
+}
+
+.submit {
+  margin-top:100rpx;
+  background: #f37c7b;
+  color: #fff;
+}
+
+.submit::after {
+  border:none;
+}

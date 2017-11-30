@@ -1,0 +1,22 @@
+<template name="tabBar">
+<view class="tab-bar">
+  <navigator class="item"
+  open-type="reLaunch"
+  url="/pages/index/index">
+    <image src="/images/index-a.png" mode='widthFix'/>
+    <view>首页</view>
+  </navigator>
+  <navigator class="item"
+  open-type="reLaunch"
+  url="/pages/scene/index">
+    <image src="/images/product.png" mode='widthFix'/>
+    <view>我的模版</view>
+  </navigator>
+  <navigator class="item"
+  open-type="reLaunch"
+  url="/pages/me/index">
+    <image src="/images/upset.png" mode='widthFix'/>
+    <view>设置</view>
+  </navigator>
+</view>
+</template>

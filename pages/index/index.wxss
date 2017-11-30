@@ -1,5 +1,45 @@
-.body {
+.scroll-view {
   position: absolute;
-  right:0;left: 0;
-  bottom: 0;top:0;
+  left:0;right:0;
+  top:0;bottom: 98rpx;
+}
+
+.index-list{
+  padding: 38rpx 36rpx;
+  justify-content:flex-start;
+  display: flex;
+  flex-wrap:wrap;
+}
+
+.index-list > .item {
+  background: #EDF1F6;
+  margin-right: 38rpx;
+  width: 200rpx;
+  height: 300rpx;
+  margin-bottom: 20rpx;
+}
+.index-list > .item:nth-child(3n) {
+  margin-right: 0;
+}
+
+.index-list > .item .img{
+  width: 200rpx;
+  height: 250rpx;
+  
+}
+.index-list > .item .img image{
+  width: 200rpx;
+}
+.index-list > .item .text {
+  background: #fff;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color: #666;
 }
