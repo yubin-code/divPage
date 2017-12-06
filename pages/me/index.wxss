@@ -4,7 +4,7 @@ page {
 .scroll-view {
   position: absolute;
   left:0;right:0;
-  top:0;bottom: 98rpx;
+  top:0;bottom: 0;
 }
 .header .banner {
   padding-top:30rpx;
@@ -39,4 +39,21 @@ page {
 }
 .ul .li .scene {
   margin-top:10rpx;
+}
+
+.list .item{
+  margin-top: 20rpx;
+  padding: 0 40rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.list .item .span{
+  display: inline-block;
+  margin-left: 10rpx;
 }

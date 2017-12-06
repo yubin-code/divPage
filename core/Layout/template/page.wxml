@@ -6,6 +6,7 @@
     <view class="layout-model-form-setup"
     wx:for="{{layout.myModel.field}}"
     wx:key="{{index}}">
+    
       <view class="form-group"
       wx:if="{{(item.type=='input' || item.type=='button') && !item.system}}">
         <view class="lable">{{ item.type== 'button' ? '按钮文字：' : '名称：' }}</view>
@@ -14,6 +15,8 @@
         <input name="{{item.key + '_type'}}" value="{{item.type}}" class="layout-hide"/>
         </view>
       </view>
+
+
       <view class="form-group form-group-between" 
       wx:if="{{item.option}}"
       data-key="{{index}}"
@@ -22,6 +25,19 @@
         <view class="lable">类型：</view>
         <view class="box">{{ item.option[item.optionIndex || 0].name }}</view>
       </view>
+      
+      <!--是否显示这个字段  -->
+      <view class="form-group form-group-between" 
+      wx:if="{{item.type=='input'}}">
+        <input  name="{{item.key + '_checkKey'}}" value="{{item.option[item.optionIndex || 0].checkKey}}"  class="layout-hide"/>
+        <view class="lable">是否显示：</view>
+        <view class="box">
+        <switch name="{{item.key + '_isShow'}}"
+        checked='{{item.isShow}}'
+        bindchange="{{layout[item.formSwitch]}}"
+        data-key="{{index}}"/></view>
+      </view>
+      
       <view class="form-group" 
       wx:if="{{item.submit}}">
         <view class="lable">成功提示：</view>
@@ -37,7 +53,7 @@
     </view>
 
     <view class="layout-fengfa">
-      <view class="fengfa-title" catchtap="{{layout[layout.myModel.more]}}">更多设置</view>
+      <!-- <view class="fengfa-title" catchtap="{{layout[layout.myModel.more]}}">更多设置</view> -->
     </view>
     </form>
   </scroll-view>

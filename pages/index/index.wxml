@@ -5,22 +5,27 @@
     url="/pages/divPage/index?mode=true"
     hover-class="navigator-hover"
     class="item">
-      <view class="img">
-        <image src='/images/upset.png' style="height:250rpx;"/>
+      <view class="add">
+        <image src='/images/add.png'/>
       </view>
-      <view class="text">创建空场景</view>
     </navigator>
     <navigator class="item"
     pen-type="navigate"
     url="/pages/divPage/index?mode=false"
-    wx:for="1234567890123456789"
+    wx:for="{{list}}"
     wx:key="{{index}}">
       <view class="img">
-        <image src='/images/upset.png' mode='widthFix'/>
+         <image wx:if="{{item.cover}}" src='{{item.cover}}' mode='widthFix'/> 
       </view>
-      <view class="text">add</view>
+      <!-- <view class="text">add</view> -->
     </navigator>
   </view>
 </scroll-view>
-<import src="../template/bar.wxml"/>
-<template is="tabBar"/>
+
+<view class="authorization" wx:if="{{!user.uid}}">
+  <view class="model">
+      <view>微聚合申请获取一下权限：</view>
+      <view>获得你的公开信息（昵称、头像等)</view>
+      <button class='model-btn' open-type='getUserInfo' bindgetuserinfo='login'>授权</button>
+  </view>
+</view>

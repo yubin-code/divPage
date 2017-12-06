@@ -1,13 +1,20 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
+import { getSummary } from "../../api/user.js";
 Page({
-  data: {},
-  onShareAppMessage: function () {
-    return {
-      title:"测试分享",
-      path: '/pages/index/index',
-    };
+  data: {
+    tel: '13661210020'
   },
-  onLoad: function () {},
+  onLoad: function () {
+
+  },
+  onShow (){
+    getSummary(data => {
+      this.setData(data);
+    });
+  },
+  Phone (){
+    wx.makePhoneCall({ phoneNumber: this.data.tel })
+  }
 })

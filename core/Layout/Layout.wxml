@@ -32,7 +32,7 @@
   </view> 
 
   <view class="edit"
-  wx:if="{{!layout.mode}}"
+  wx:if="{{(!layout.mode && layout.isEdit) || (!layout.mode && layout.isDev)}}"
   catchtap='{{layout.LayoutPreview}}'>
     编辑<image src='/core/images/edit.png'/>
   </view>

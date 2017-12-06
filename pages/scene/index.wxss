@@ -1,28 +1,34 @@
+.navigator-hover {
+  background: #fff;
+}
 page {
   background: #f2f2f2;
 }
 .scroll-view {
   position: absolute;
   left:0;right:0;
-  top:0;bottom: 98rpx;
+  top:0;bottom: 0;
 }
 .index-list{
-  padding: 20rpx;
+  padding: 30rpx;
 }
 .index-list .item {
   position: relative;
-  height: 200rpx;
+  height: 300rpx;
+  width: 678rpx;
   background: #fff;
-  padding: 20rpx;
+  padding: 30rpx;
   box-sizing: border-box;
   overflow: hidden;
+  margin: 0 auto;
+  margin-bottom: 20rpx;
   display: flex;
   justify-content: space-between;
 }
 .index-list .item .img {
   width: 160rpx;
-  height: 160rpx;
-  background: red;
+  height: 240rpx;
+  background: #f2f2f2;
 }
 .index-list .item .img image {
   width: 100%;
@@ -32,16 +38,18 @@ page {
 .index-list .item .content {
   flex: 1;
   width: 160rpx;
-  height: 160rpx;
+  height: 220rpx;
   margin-left:20rpx;
   position: relative;
 }
 .index-list .item .title {
-  color: #333;
+  color: #4A4A4A;
+  padding: 30rpx 0;
+  font-size: 32rpx;
 }
 .index-list .item .describe {
-  color: #333;
-  font-size: 30rpx;
+  color: #666666;
+  font-size: 24rpx;
 }
 .index-list .item .tool {
   position: absolute;
@@ -49,17 +57,54 @@ page {
   width: 100%;
   font-size: 26rpx;
   color: #666;
+  display: flex;
+  justify-content: space-between;
+}
+.index-list .item .tool .xiansuo image{
+ width: 30rpx;
+ height: 30rpx; 
+ vertical-align: middle;
+ margin-right: 10rpx;
+}
+.index-list .fenxiao {
+  position: relative;
+}
+.index-list .fenxiao button {
+  position: absolute;
+  top:0;left:0;
+  width: 30rpx;
+  height: 40rpx;
+  opacity: 0;
+}
+
+.index-list .item .tool .updata {
+  display: flex;
+}
+.index-list .item .tool .updata image{
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 20rpx;
+  vertical-align: middle;
 }
 .index-list .item .status {
   position: absolute;
-  transform:rotate(40deg);
-  right: -90rpx;top:-30rpx;
+   transform:rotate(40deg); 
+  right: -80rpx;top:10rpx;
   background: #01cc33;
   padding: 10rpx;
   font-size: 20rpx;
   color: #fff;
-  height: 80rpx;
-  line-height: 120rpx;
+  height: 20rpx;
+  line-height: 20rpx;
   width: 200rpx;
   text-align: center;
+}
+.index-list .item .status.no {
+  background: #F56645;
+}
+.information {
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 100rpx;
+  color: #999;
 }

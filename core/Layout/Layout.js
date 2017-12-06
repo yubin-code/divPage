@@ -3,6 +3,8 @@ import Style from './model/Style';
 import Model from './model/Model'; 
 import Menu from './model/Menu';
 import Comp from './model/Comp';
+import cof from '../../config.js';
+import { updata } from '../../api/tool';
 
 const setData = (k, v) => wx.setStorageSync(k, v)
 const getData = k => wx.getStorageSync(k)
@@ -201,7 +203,7 @@ class Layout extends Base {
     // 保存页面
     this.LayoutSave = "LayoutSave" + this._eventId;
     page[this.LayoutSave] = e => {
-      let data = getData("cover")
+      let data = getData("outline") || {};
       this.LayoutLoad = {
         show: true,
         title: "页面数据保存中"
@@ -232,7 +234,13 @@ class Layout extends Base {
         }
       })
     }
-    
+    // Switch
+    this.formSwitch = "formSwitch" + this._eventId;
+    page[this.formSwitch] = e => {
+      let key = e.currentTarget.dataset.key;
+      this.myModel.field[key].isShow = e.detail.value
+      this.update();
+    }
 
   // 添加文字
    this.LayoutformText = "LayoutformText" + this._eventId;
@@ -279,12 +287,12 @@ class Layout extends Base {
       this.myModel['tels'] = data.tels;
       this.closewindows();
     }
-
+    
     // 系统表单提交
     this.submitForm = "submitForm" + this._eventId;
     page[this.submitForm] = e => {
       let data = e.detail.value;
-      console.log(data)
+
       let check = Model.check(data);
       if (check.msg){
         showModal(check);
@@ -321,6 +329,9 @@ class Layout extends Base {
               break;
             case "type":
               attr[field[0]].type = data[item]
+              break;
+            case "isShow":
+              attr[field[0]].isShow = !data[item]
               break;
           }
           continue;
@@ -373,6 +384,7 @@ class Layout extends Base {
     // 用户自定义表提交
     this.UserForm = "UserForm" + this._eventId;
     page[this.UserForm] = e => {
+      let detail = e.detail.target.dataset;
       let data = e.detail.value;
       // 验证字段
       let check = Model.check(data);
@@ -382,13 +394,18 @@ class Layout extends Base {
       }
 
       // 具体的行为
+      this.iscallback(this.submit, { data, detail });
     }
   };
 
 
   // 初始化数据结构
   init(data) {
+    // 判断是编辑模式还是预览模式
     this.mode = (data.mode == 'true' ? true : false)
+    // 判断是否是这个用户创建如果是那么就可以编辑
+    this.isEdit = (getData('user').uid == data.uid);
+    this.isDev = !(data.id);
     this.update();
   };
   // 动画结束
@@ -471,14 +488,34 @@ class Layout extends Base {
           option,
           optionClick: "optionClick",
           checkKey:(parts && parts.field['user'].checkKey || ''),
+          optionIndex: (parts && parts.field['user'].optionIndex||''),
+          isShow: !(parts && parts.field['user'].isShow),
           value: (parts && parts.field['user'].name || '姓名')
         },
         tel: {
           option,
           optionClick: "optionClick",
+          optionIndex:(parts && parts.field['tel'].optionIndex||''),
           check: true,
+          isShow: !(parts && parts.field['tel'].isShow),
           checkKey:(parts && parts.field['tel'].checkKey || ''),
           value: (parts && parts.field['tel'].name || '电话')
+        },
+        enterprise: {
+          option,
+          optionClick: "optionClick",
+          optionIndex: (parts && parts.field['enterprise'].optionIndex||''),
+          checkKey: (parts && parts.field['enterprise'].checkKey || ''),
+          isShow: !(parts && parts.field['enterprise'].isShow),
+          value: (parts && parts.field['enterprise'].name || '企业名称')
+        },
+        occupation: {
+          option,
+          optionClick: "optionClick",
+          optionIndex: (parts && parts.field['occupation'].optionIndex || ''),
+          checkKey: (parts && parts.field['occupation'].checkKey || ''),
+          isShow: !(parts && parts.field['occupation'].isShow),
+          value: (parts && parts.field['occupation'].name || '职位')
         },
         button: {
           fictitious: true,
@@ -489,7 +526,6 @@ class Layout extends Base {
         submit: { system: true, formType: 'submit'},
         cancel: { system: true, name: "取消", click: "closeWindow", type: "button"},
       });
-    
     mo = JSON.stringify(mo)
     this.myModel = JSON.parse(mo);
     this.update();
@@ -592,11 +628,20 @@ class Layout extends Base {
           src,
           success: res => {
             this.uploadImg(src, url => {
-              this.setLayout("LayoutLoad", 
-              { show: false, title: "" });
+              this.setLayout("LayoutLoad",{ show: false, title: "" });
+              let width = '';
+              // 如果图片大于750 那么就切割下
+              if (res.width > 750){
+                width = '?width=750';
+              }
+
+              // 拼装图片地址
+              let imgUrl = [cof.HOST, 'development/api/resource/image', url].join('/');
+              // 设置图片的宽度
+              imgUrl += width;
               
               if (typeof callback == "function") {
-                return callback(url, res);
+                return callback(imgUrl, res);
               }
               callback();
             })
@@ -608,7 +653,12 @@ class Layout extends Base {
 
   // 上传图片
   uploadImg (url, callback){
-    typeof callback == "function" && callback(url);
+    updata(url, 'file', res => {
+      this.setLayout("LayoutLoad", { show: false, title: "" });
+      if (res.status.code !== 0) return showModal({ msg: '上传图片错误！' });
+      typeof callback == "function" && callback((res.data && res.data.imgName));
+    });
+    
   }
 
   // 修改样式

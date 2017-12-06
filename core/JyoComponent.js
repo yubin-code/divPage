@@ -114,3 +114,5 @@ import Layout from "Layout/Layout";
 JyoComponent.register("Layout", Layout);
 
 module.exports = JyoComponent;
+
+// git: x: 1005:1005::/home/git:/usr/bin / g - shell

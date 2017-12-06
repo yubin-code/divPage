@@ -1,24 +1,39 @@
-<import src="../template/bar.wxml"/>
 <scroll-view scroll-y class="scroll-view">
   <view class="header">
     <view class="banner">
-      <image src='http://img0.imgtn.bdimg.com/it/u=1769868592,214736150&fm=27&gp=0.jpg'/>
-      <view class="text">章三</view>
+      <image src='{{avatarUrl}}' wx:if="{{avatarUrl}}"/>
+      <view class="text">{{ nickName }}</view>
     </view>
     <view class="ul">
       <view class="li">
-        <view class="num">8</view>
+        <view class="num">{{ scenesCount }}</view>
         <view class="scene">总场景</view>
       </view>
       <view class="li">
-        <view class="num">3</view>
+        <view class="num">{{ scenesInUse }}</view>
         <view class="scene">使用中</view>
       </view>
       <view class="li">
-        <view class="num">200</view>
-        <view class="scene">线索书</view>
+        <view class="num"> {{ intentionCount }} </view>
+        <view class="scene">线索数</view>
       </view>
     </view>
   </view>
+
+  <view class="list">
+    <navigator url="/pages/checkMobile/index" wx:if="{{!telVerified}}" class="item">
+      <view class='k'>手机认证</view>
+      <view class='v'>未认证 <view class='span'>></view></view>
+    </navigator>
+
+    <view class="item" wx:if="{{telVerified}}">
+      <view class='k'>手机认证</view>
+      <view class='v'>已认证</view>
+    </view>
+    
+    <view class="item" catchtap='Phone'>
+      <view class='k'>联系客服</view>
+      <view class='v'>{{tel}} <view class='span'>></view></view>
+    </view>
+  </view>
 </scroll-view>
-<template is="tabBar"/>

@@ -1,0 +1,18 @@
+<form>
+  <view class="list">
+    <view class="item">
+      <view class="lable">手机号</view>
+      <view class="value">
+        <input name="tel"  bindinput="bindTel" placeholder='添加手机号'/>
+      </view>
+      <view class="additional" catchtap='getCode'>{{ sum == 0 ? '获取短信' : sum }}</view>
+    </view>
+    <view class="item">
+      <view class="lable">验证码</view>
+      <view class="value">
+        <input class='code' bindinput="bindCode" placeholder='填写验证码'/>
+      </view>
+    </view>
+  </view>
+  <button class='btn' catchtap='checkCode'>立即验证</button>
+</form>

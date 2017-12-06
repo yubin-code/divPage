@@ -22,6 +22,7 @@ let Model = {
     key: "",
     fictitious: false,  // 虚构的组件 目前无用
     system: false,      // 系统组件
+    isShow: true,       // 是否显示这个组件
   },
   // 数据类型
   // option: [{
@@ -111,22 +112,34 @@ Model.add = function (name, key, obj){
 
 Model.add("名字", "user", { 
   placeholder: "请输入名字",
-  type: 'input'
+  type: 'input',
+  formSwitch: 'formSwitch'
   });
 Model.add("电话", "tel", {
     placeholder: "请输入电话",
     prompt: "电话号码不正确",
     type: 'input',
-    // checkKey: "tel"
+    checkKey: "tel",
+    formSwitch: 'formSwitch'
   });
 Model.add("地址", "url", {
   placeholder: "请输入地址",
-  prompt: "网址格式不正确",
-  checkKey: "url",
-  type: 'input'
-  });
+  type: 'input',
+  formSwitch: 'formSwitch'
+});
+Model.add("企业名称", "enterprise", {
+  placeholder: "请输入企业名称",
+  type: 'input',
+  formSwitch: 'formSwitch'
+});
+Model.add("职位", "occupation", {
+  placeholder: "请输入职位",
+  type: 'input',
+  formSwitch: 'formSwitch'
+});
 Model.add("提交", "submit", { 
-  type: 'button', formType: "submit"
+  type: 'button',
+  formType: "submit",
  });
 
 Model.add("自动播放", "switch", { type: 'switch' });

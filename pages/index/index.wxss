@@ -1,7 +1,7 @@
 .scroll-view {
   position: absolute;
   left:0;right:0;
-  top:0;bottom: 98rpx;
+  top:0;bottom: 0;
 }
 
 .index-list{
@@ -42,4 +42,44 @@
   text-overflow:ellipsis;
   white-space:nowrap;
   color: #666;
+}
+.index-list .add {
+  width: 200rpx;
+  height: 300rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.index-list .add image{
+  width: 72rpx;
+  height: 72rpx;
+}
+
+.authorization {
+  position: fixed;
+  top:0;bottom: 0;
+  left:0;right: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+.authorization .model {
+  position: absolute;
+  top:200rpx;
+  left: 50%;
+  margin-left: -300rpx;
+  width: 600rpx;
+  line-height: 60rpx;
+  background: #fff;
+  padding: 20rpx 40rpx;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  color: #666;
+}
+.authorization .model-btn{
+  background: #f37c7b;
+  color: #fff;
+  margin-top: 30rpx;
+}
+.authorization .model-btn:after {
+  border:none;
 }

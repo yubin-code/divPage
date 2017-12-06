@@ -4,6 +4,7 @@
     "pages/divPage/index",
     "pages/scene/index",
     "pages/sceneSet/index",
+    "pages/checkMobile/index",
     "pages/me/index"
   ],
   "window": {
@@ -11,5 +12,27 @@
     "navigationBarBackgroundColor": "#1D203B",
     "navigationBarTitleText": "微秀",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#858585",
+    "selectedColor": "#4685F6",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/tab/index.png",
+        "selectedIconPath": "images/tab/index-a.png",
+        "text": "首页"
+      },{
+        "pagePath": "pages/scene/index",
+        "iconPath": "images/tab/chang.png",
+        "selectedIconPath": "images/tab/chang-a.png",
+        "text": "模版"
+      },{
+        "pagePath": "pages/me/index",
+        "iconPath": "images/tab/me.png",
+        "selectedIconPath": "images/tab/me-a.png",
+        "text": "我的"
+      }
+    ]
   }
 }

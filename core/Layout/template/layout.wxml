@@ -74,6 +74,7 @@
  <video class="layout-video"
      id="myVideo"
      src="{{item.src}}"
+     autoplay="{{item.switch}}"
      wx:if="{{!mode && item.key == 'video'}}"
      style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;"
      objectFit="cover" controls></video>
@@ -92,22 +93,24 @@
     <block
     wx:for="{{item.field}}"
     wx:for-item="i"
-    wx:key="{{index}}">
+    wx:for-index="k"
+    wx:key="{{k}}">
        <view class="layout-input"
-      wx:if="{{i.type == 'input' && mode}}">{{i.name}}</view>
+      wx:if="{{i.type == 'input' && !i.isShow && mode}}">{{i.name}}</view>
       <view class="layout-button"
       wx:if="{{i.type == 'button' && mode}}"
       style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};">{{i.name}}</view> 
 
-      <input name="{{index}}"
+      <input name="{{k}}"
       class="layout-input"
-      wx:if="{{i.type == 'input' && !mode}}"
+      wx:if="{{i.type == 'input' && !i.isShow && !mode}}"
+      value="{{i.input || ''}}"
       placeholder="{{i.name}}"/>
       <button
         wx:if="{{i.type == 'button' && !mode}}"
         class="layout-button"
         formType="submit"
-        style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};">{{i.name}}</button>
+        style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};" data-index="{{index}}" data-k="{{k}}" data-prompt="{{i.prompt}}">{{i.name}}</button>
     </block>
   </form>
 </template>

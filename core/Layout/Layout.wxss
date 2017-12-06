@@ -42,6 +42,7 @@ slider {
   line-height: 80rpx;
   border:1px solid #ccc;
   border-radius: 10rpx;
+  background: #fff;
   padding: 0 20rpx;
   margin-bottom: 20rpx;
 }

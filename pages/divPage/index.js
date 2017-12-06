@@ -2,6 +2,9 @@
 //获取应用实例
 const app = getApp()
 import JyoComponent from '../../core/JyoComponent';
+import { getUser } from "../../api/user.js";
+import { scenesCreate, getScenes, editScenes, addIntention } from "../../api/scenes.js";
+import { showModal, remoData, setData } from '../../utils/util.js';
 Page({
   data: {
     parts: [
@@ -37,16 +40,13 @@ Page({
     ], // 页面构成部分
     partsIndex: 0, // 组件部分下表防止报错
   },
-  onShareAppMessage: function () {
-    return {
-      title:"测试分享",
-      path: '/pages/index/index',
-    };
-  },
   onLoad: function (parem) {
     let layout = JyoComponent.create("Layout", "layout", this);
     
     layout.init(parem);
+    
+    // 获取初始化数据
+    parem.id && this.getParts(parem);
 
     layout.dblclick = e => {
       let index = e.currentTarget.dataset.index;
@@ -77,21 +77,44 @@ Page({
     layout.save = (data, nxet) => {
       data.parts = this.data.parts || [];
       if (this.data.parts.length == 0){
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: '没有任何编辑操作保存失败',
-          success: (res) => nxet()
-        })
+        showModal({ content: '没有任何编辑操作保存失败' }, ()=>{
+          nxet();
+        });
         return false;
       }
-
       // 下一步
       nxet();
-      // 所有的页面数据 
-      console.log(data)
-    }
+      // 如果没有封面, 
+      if (!data.cover){
+        let parts = data.parts
+        for (let k in parts){
+          let item = parts[k];
+          if (item.key == 'background'){
+            data.cover = item.src;
+          }
+        }
+      }
 
+      // 如果没有标题
+      if (!data.title) {
+        data.title = '未设置标题'
+      }
+      
+      if (!this.data.id){
+        // 添加数据
+        scenesCreate(data, () => {
+          showModal({ content: '保存数据成功' });
+        });
+        return false;
+      }
+      
+      // 修改数据
+      editScenes(this.data.id, data, () => {
+        wx.navigateBack({ delta: 1 })
+      });
+
+    }
+    
     // 删除数据
     layout.delComponent = (index) => {
       let parts = this.data.parts
@@ -134,10 +157,29 @@ Page({
     }
     
     // 表单提交的数据
-    layout.submit = (data) => {
-      console.log(data);
-    }
+    layout.submit = res => {
+      // 组装数据 
+      let data = {
+        ref_scenes: this.data.id,
+        formData: res.data
+      }
+      
+      // 重置数据
+      let parts = this.data.parts;
+      let item = parts[res.detail.index];
+      for (let k in item.field){
+        item.field[k].input = '';
+      }
+      parts[res.detail.index] = item;
+      this.setData({ parts });
 
+      // 添加线索
+      addIntention(data, (data) => {
+        // 提示添加成功
+        showModal({ content: res.detail.prompt });
+      });
+    }
+    
     // 修改样式
     layout.updataStyle = style => {
       let parts = this.data.parts;
@@ -146,4 +188,20 @@ Page({
       this.setData({ parts });
     }
   },
+  onUnload (){
+    remoData('outline');
+  },
+  getParts(parem){
+    let user = getUser('user');
+    getScenes(parem.id, data => {
+      // 显示页面数据
+      let parts = data.parts || [];
+      let id = data._id;
+      
+      this.setData({ parts, id });
+      // 获取页面详情
+      delete data.parts;
+      setData('outline', data);
+    });
+  }
 })
