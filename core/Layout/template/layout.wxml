@@ -101,7 +101,7 @@
       wx:if="{{i.type == 'button' && mode}}"
       style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};">{{i.name}}</view> 
 
-      <input name="{{k}}"
+      <input name="{{i.key}}"
       class="layout-input"
       wx:if="{{i.type == 'input' && !i.isShow && !mode}}"
       value="{{i.input || ''}}"

@@ -1,4 +1,3 @@
-<import src="../template/bar.wxml"/>
 <scroll-view scroll-y class="scroll-view">
   <view class="index-list">
     <navigator pen-type="navigate"
@@ -11,7 +10,7 @@
     </navigator>
     <navigator class="item"
     pen-type="navigate"
-    url="/pages/divPage/index?mode=false"
+    url="/pages/divPage/index?mode=false&buildin=true&systemId={{item._id}}"
     wx:for="{{list}}"
     wx:key="{{index}}">
       <view class="img">

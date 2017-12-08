@@ -41,13 +41,14 @@ Page({
     partsIndex: 0, // 组件部分下表防止报错
   },
   onLoad: function (parem) {
+
     let layout = JyoComponent.create("Layout", "layout", this);
     
     layout.init(parem);
     
     // 获取初始化数据
-    parem.id && this.getParts(parem);
-
+    (parem.id || parem.systemId) && this.getParts(parem);
+    
     layout.dblclick = e => {
       let index = e.currentTarget.dataset.index;
       console.log("双击了")
@@ -66,10 +67,13 @@ Page({
     
     // 编辑数据
     layout.editComponent = (val) => {
+      
       let parts = this.data.parts
       let index = layout.getIndex;
       let card = parts[index]
+
       parts[index] = Object.assign(card, val);
+
       this.setData({ parts });
     }
     
@@ -102,7 +106,9 @@ Page({
       
       if (!this.data.id){
         // 添加数据
-        scenesCreate(data, () => {
+        scenesCreate(data, res => {
+          // 保存返回的id方便修改数据 
+          this.setData({ id: res.data.id });
           showModal({ content: '保存数据成功' });
         });
         return false;
@@ -110,7 +116,8 @@ Page({
       
       // 修改数据
       editScenes(this.data.id, data, () => {
-        wx.navigateBack({ delta: 1 })
+        // wx.navigateBack({ delta: 1 })
+        showModal({ content: '修改数据成功' });
       });
 
     }
@@ -193,14 +200,26 @@ Page({
   },
   getParts(parem){
     let user = getUser('user');
-    getScenes(parem.id, data => {
+    getScenes((parem.id || parem.systemId), data => {
       // 显示页面数据
       let parts = data.parts || [];
+
       let id = data._id;
-      
+      // 如果是模版id那么不保存id
+      if (parem.buildin == 'true'){
+        id = ''
+      }
+
+      // 如果场景没有上线那么就不能访问
+      if (!!id && !parem.mode && !data.online){
+        showModal({ content: '此场景已下线' }, () => {
+          wx.navigateBack({ delta: 1 })
+        });
+        return false;
+      }
+
       this.setData({ parts, id });
       // 获取页面详情
-      delete data.parts;
       setData('outline', data);
     });
   }

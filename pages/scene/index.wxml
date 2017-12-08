@@ -1,4 +1,4 @@
-<scroll-view scroll-y class="scroll-view">
+<scroll-view scroll-y class="scroll-view" bindscrolltolower="scrollButtom">
   <view class="index-list">
     <block wx:for="{{list}}" wx:key="this">
       <view class="item">
@@ -18,7 +18,8 @@
                 <image src='/images/set.png'/>
               </navigator>
               <view class="fenxiao">
-                <button open-type="share" data-index="{{index}}"></button>
+              <button catchtap='noShare' data-index="{{index}}"></button>
+                <button open-type="share" wx:if="{{item.online}}" data-index="{{index}}"></button>
                 <image src='/images/fenxiao.png'/>
               </view>
             </view>
@@ -27,6 +28,9 @@
         <view class="status {{ item.online ? '': 'no' }}">{{ item.online ? '使用中': '未使用' }}</view>
       </view>
     </block>
+    <view class="load" wx:if="{{ isLoad > 0 }}">
+      {{ isLoad === 1 ? '加载中' : '没有数据了' }}
+    </view>
     <view class="information" wx:if="{{!list.length}}">
       暂无模版
     </view>

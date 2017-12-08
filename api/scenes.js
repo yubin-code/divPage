@@ -9,7 +9,7 @@ const scenesCreate = (data, callback) => {
       showModal({ content: '添加场景失败' });
       return false;
     }
-    typeof callback == "function" && callback();
+    typeof callback == "function" && callback(res);
   });
 }
 

@@ -63,13 +63,17 @@ Menu.addChild("完成", "end", { show: true });
 
 Menu.add("文字", "text", {
   child: [ "edit", "style", "upMove", "downMove", "del", "end"],
-  style: ["text-align", "color", "width", "font-size"],
+  style: [
+    { type: 'text-align' },
+    { type: 'color' },
+    { type: 'width' },
+    { type: 'font-size' }],
 });
 // child 子类菜单都有那些
 // 这个组件拥有的 style 样式
 Menu.add("图片", "img", {
   child: ["edit", "style", "upMove", "downMove", "del", "end"],
-  style: ["width"]
+  style: [{ type: 'width' }]
 });
 Menu.add("背景", "background", {
   add: "addBg",       // 添加背景
@@ -78,15 +82,25 @@ Menu.add("背景", "background", {
 });
 Menu.add("表单", "form", {
   child: ["edit", "style", "upMove", "downMove", "del", "end"],
-  style: ["text-align", "color", "background", "width", "font-size"],
+  style: [
+    { type: 'text-align' },
+    { type: 'color' },
+    { type: 'background' },
+    { type: 'width' },
+    { type: 'font-size' }],
 });
 Menu.add("电话", "tel", {
   child: ["edit", "style", "upMove", "downMove", "del", "end"],
-  style: ["text-align", "color", "background", "width", "font-size"],
+  style: [
+    { type: 'text-align' },
+    { type: 'color'},
+    { type: 'background'},
+    { type: 'width'},
+    { type: 'font-size'}],
 });
 Menu.add("视频", "video", {
   child: ["edit", "style", "upMove", "downMove", "del", "end"],
-  style: [ "width", "height"],
+  style: [{ type: 'width' }, { type: 'height', min: 50, max: 500 }],
 });
 
 module.exports = Menu

@@ -2,12 +2,12 @@
 <template name="layout-tools-gadget">
   <block wx:for="{{layout.LayoutStyleList}}" wx:key="{{index}}" >
     <!-- 是否居中  -->
-    <view class="layout-font-align" wx:if="{{layout.Style[item].type == 'tab'}}">
+    <view class="layout-font-align" wx:if="{{layout.Style[item.type].type == 'tab'}}">
       <view class="item"
-      catchtap="{{layout.Style[item].click + layout._eventId}}"
-      wx:for="{{layout.Style[item].child}}"
+      catchtap="{{layout.Style[item.type].click + layout._eventId}}"
+      wx:for="{{layout.Style[item.type].child}}"
       wx:key="{{index}}"
-      data-type="{{layout.Style[item].type}}"
+      data-type="{{layout.Style[item.type].type}}"
       data-key="{{item}}"
       data-value="{{index}}"
       wx:for-item="i"
@@ -18,31 +18,31 @@
     </view>
     <!-- 字体颜色  -->
     <view class="layout-color-box"
-    wx:if="{{layout.Style[item].type == 'color'}}">
-      <view class="layout-color-title">{{layout.Style[item].name}}</view>
+    wx:if="{{layout.Style[item.type].type == 'color'}}">
+      <view class="layout-color-title">{{layout.Style[item.type].name}}</view>
       <scroll-view scroll-x="true"
       class="layout-font-color-scroll">
-        <block wx:for="{{layout.Style[item].list}}" wx:key="{{index}}" wx:for-item="i">
-          <view catchtap="{{layout.Style[item].click + layout._eventId}}"
-          class="font-color {{parts[layout.layoutIndex].attr[layout.Style[item].key] == i ? 'font-color-avtive' : ''}}"
+        <block wx:for="{{layout.Style[item.type].list}}" wx:key="{{index}}" wx:for-item="i">
+          <view catchtap="{{layout.Style[item.type].click + layout._eventId}}"
+          class="font-color {{parts[layout.layoutIndex].attr[layout.Style[item.type].key] == i ? 'font-color-avtive' : ''}}"
           data-value="{{i}}"
-          data-key="{{item}}"
-          data-type="{{layout.Style[item].type}}"
+          data-key="{{item.type}}"
+          data-type="{{layout.Style[item.type].type}}"
           style="background:{{i}}"></view>
         </block>
       </scroll-view>
     </view>
 
     <!-- 字体大小 -->
-    <view class='layout-slide' wx:if="{{layout.Style[item].type == 'slider'}}">
-      <view>{{layout.Style[item].front}}</view>
-      <slider bindchange="{{layout.Style[item].click + layout._eventId}}"
-      min="{{layout.Style[item].min}}"
-      max="{{layout.Style[item].max}}"
-      data-type="{{layout.Style[item].type}}"
-      data-key="{{item}}"
-      value="{{parts[layout.layoutIndex].pureAttr[item] || layout.Style[item].defaultValue}}" activeColor="#4685F6"/>
-      <view>{{layout.Style[item].after}}</view>
+    <view class='layout-slide' wx:if="{{layout.Style[item.type].type == 'slider'}}">
+      <view>{{layout.Style[item.type].front}}</view>
+      <slider bindchange="{{layout.Style[item.type].click + layout._eventId}}"
+      min="{{item.min || layout.Style[item.type].min}}"
+      max="{{item.max || layout.Style[item.type].max}}"
+      data-type="{{layout.Style[item.type].type}}"
+      data-key="{{item.type}}"
+      value="{{parts[layout.layoutIndex].pureAttr[item.type] || layout.Style[item.type].defaultValue}}" activeColor="#4685F6"/>
+      <view>{{layout.Style[item.type].after}}</view>
     </view>
   </block>
 <view 

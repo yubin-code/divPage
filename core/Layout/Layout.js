@@ -292,7 +292,6 @@ class Layout extends Base {
     this.submitForm = "submitForm" + this._eventId;
     page[this.submitForm] = e => {
       let data = e.detail.value;
-
       let check = Model.check(data);
       if (check.msg){
         showModal(check);
@@ -313,6 +312,7 @@ class Layout extends Base {
     page[this.submitModel] = e => {
       let data = e.detail.value;
       let myModel = this.myModel.field;
+    
       // 拼装数据
       let attr = {};
       for (let item in data){
@@ -347,10 +347,34 @@ class Layout extends Base {
         }
       }
 
-      data = { field: attr }
+      let field = [];
+      // 排序数据
+      for (let item in attr){
+        if (item == 'user') {
+          field.push(attr[item]);
+          continue;
+        }
+        if (item == 'tel') {
+          field.push(attr[item]);
+          continue;
+        }
+        if (item == 'occupation') {
+          field.push(attr[item]);
+          continue;
+        }
+        if (item == 'enterprise') {
+          field.push(attr[item]);
+          continue;
+        }
+        if (item == 'button') {
+          field.push(attr[item]);
+          continue;
+        }
+      }
+      
+      data = { field }
       data.message = this.myModel.message
       data.tels = this.myModel.tels
-
       
       // 执行添加或修改数据
       if (this.copmode == 0) {
@@ -386,6 +410,7 @@ class Layout extends Base {
     page[this.UserForm] = e => {
       let detail = e.detail.target.dataset;
       let data = e.detail.value;
+      console.log(data)
       // 验证字段
       let check = Model.check(data);
       if (check.msg) {
@@ -475,6 +500,15 @@ class Layout extends Base {
       checkKey: "tel"
     }];
     
+    let field = ''
+    if (parts){
+      field = {}
+      for (let item in parts.field){
+        field[parts.field[item].key] = parts.field[item];
+      }
+    }
+
+
     let mo = Model.createForm({
       type: "from",   // 创建电话
       submit: "submitModel",
@@ -487,45 +521,46 @@ class Layout extends Base {
         user: {
           option,
           optionClick: "optionClick",
-          checkKey:(parts && parts.field['user'].checkKey || ''),
-          optionIndex: (parts && parts.field['user'].optionIndex||''),
-          isShow: !(parts && parts.field['user'].isShow),
-          value: (parts && parts.field['user'].name || '姓名')
+          checkKey: (field && field['user'].checkKey || ''),
+          optionIndex: (field && field['user'].optionIndex||''),
+          isShow: !(field && field['user'].isShow),
+          value: (field && field['user'].name || '姓名')
         },
         tel: {
           option,
           optionClick: "optionClick",
-          optionIndex:(parts && parts.field['tel'].optionIndex||''),
+          optionIndex: (field && field['tel'].optionIndex||''),
           check: true,
-          isShow: !(parts && parts.field['tel'].isShow),
-          checkKey:(parts && parts.field['tel'].checkKey || ''),
-          value: (parts && parts.field['tel'].name || '电话')
+          isShow: !(field && field['tel'].isShow),
+          checkKey: (field && field['tel'].checkKey || ''),
+          value: (field && field['tel'].name || '电话')
         },
         enterprise: {
           option,
           optionClick: "optionClick",
-          optionIndex: (parts && parts.field['enterprise'].optionIndex||''),
-          checkKey: (parts && parts.field['enterprise'].checkKey || ''),
-          isShow: !(parts && parts.field['enterprise'].isShow),
-          value: (parts && parts.field['enterprise'].name || '企业名称')
+          optionIndex: (field && field['enterprise'].optionIndex||''),
+          checkKey: (field && field['enterprise'].checkKey || ''),
+          isShow: !(field && field['enterprise'].isShow),
+          value: (field && field['enterprise'].name || '企业名称')
         },
         occupation: {
           option,
           optionClick: "optionClick",
-          optionIndex: (parts && parts.field['occupation'].optionIndex || ''),
-          checkKey: (parts && parts.field['occupation'].checkKey || ''),
-          isShow: !(parts && parts.field['occupation'].isShow),
-          value: (parts && parts.field['occupation'].name || '职位')
+          optionIndex: (field && field['occupation'].optionIndex || ''),
+          checkKey: (field && field['occupation'].checkKey || ''),
+          isShow: !(field && field['occupation'].isShow),
+          value: (field && field['occupation'].name || '职位')
         },
         button: {
           fictitious: true,
           submit: true,
-          value: (parts && parts.field['button'].name || '提交'),
-          prompt: (parts && parts.field['button'].prompt || '提交成功')
+          value: (field && field['button'].name || '提交'),
+          prompt: (field && field['button'].prompt || '提交成功')
          },
         submit: { system: true, formType: 'submit'},
         cancel: { system: true, name: "取消", click: "closeWindow", type: "button"},
       });
+
     mo = JSON.stringify(mo)
     this.myModel = JSON.parse(mo);
     this.update();

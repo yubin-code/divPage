@@ -108,3 +108,10 @@ page {
   line-height: 100rpx;
   color: #999;
 }
+.load {
+  color: #999;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+  text-align: center;
+}
