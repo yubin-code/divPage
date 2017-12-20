@@ -1,0 +1,78 @@
+<template name="layout-div">
+  <scroll-view
+  class="layout-body"
+  scroll-y="{{layout.isScroll}}"
+  bindscroll="{{layout.LayoutScroll}}"
+  catchtap="{{layout.LayoutScrollClick}}"
+  style="bottom:0;">
+    <!-- <template is="layout"  data="{{...layout, item, index}}"/> -->
+
+    <block wx:key='{{item.id}}' wx:for='{{parts}}'>
+      <!-- 文字  -->
+      <view
+        class="{{item.class}}"
+        wx:if='{{item.key == "text"}}'
+        style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;">
+          <text>{{item.val}}</text>
+        </view>
+        <!-- 图片  -->
+        <image
+          src="{{item.src}}"
+          mode='widthFix'
+          class="{{item.class}}"
+          wx:if='{{item.key == "img"}}'
+          style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;"/>
+        <!--背景图  -->
+        <image
+          wx:if='{{item.key == "background"}}'
+          class='{{item.class}}'
+          src="{{item.src}}"
+          mode='widthFix'
+          style="{{item.css}};"/>
+          <!--按钮  -->
+        <button
+          catchtap="{{item.click + layout._eventId}}"
+          wx:if='{{item.key == "button"}}'
+          class="layout-button-cop {{item.class}}"
+          data-action="{{item.action || ''}}"
+          data-value="{{item.value || ''}}"
+          data-index='{{index}}'
+          style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;">
+          {{item.value}}
+          </button>
+          <!--视频  -->
+      <video class="{{item.class}}"
+          id="myVideo"
+          src="{{item.url || ''}}"
+          autoplay="{{item.switch}}"
+          wx:if="{{item.key == 'video'}}"
+          style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;"
+          objectFit="cover" controls></video>
+      <!-- 表单组件  -->
+      <form
+        data-index='{{index}}'
+        data-type='{{item.type}}'
+        class="{{item.class}}"
+        wx:if='{{item.key == "form"}}'
+        style="width:{{item.attr.width}};z-index:{{item.attr['z-index']}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;"
+        bindsubmit="{{item.submit + layout._eventId}}">
+          <block
+          wx:for="{{item.field}}"
+          wx:for-item="i"
+          wx:for-index="k"
+          wx:key="{{k}}">
+            <input name="{{i.key}}"
+            class="layout-input"
+            wx:if="{{i.type == 'input' && !i.isShow}}"
+            value="{{i.input || ''}}"
+            placeholder="{{i.name}}"/>
+            <button
+              wx:if="{{i.type == 'button'}}"
+              class="layout-button"
+              formType="submit"
+              style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};" data-index="{{index}}" data-k="{{k}}" data-prompt="{{i.prompt}}">{{i.name}}</button>
+          </block>
+        </form>
+    </block>
+  </scroll-view>
+</template>

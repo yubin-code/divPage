@@ -3,23 +3,28 @@
     <block wx:for="{{list}}" wx:key="this">
       <view class="item">
         <navigator url='/pages/divPage/index?id={{item._id}}&mode=false&uid={{item.ref}}' class="img">
-            <image wx:if="{{item.cover}}" src='{{item.cover}}'/>
+            <image wx:if="{{item.cover}}" mode='widthFix' src='{{item.cover}}'/>
         </navigator>
         <view class="content">
           <view class="title">{{item.title}}</view>
           <view class="describe">{{item.description}}</view>
           <view class="tool">
-            <view class="xiansuo">
-              <!-- <image src='/images/xiansuo.png'/>
-              <text>100</text> -->
-            </view>
+            <navigator url="/pages/preview/index?id={{item._id}}" class="xiansuo">
+              <text>浏览 </text>
+              <text>{{item.view}}</text>
+            </navigator>
+            <navigator wx:if="{{item.intentionCount > 0}}" url="/pages/clue/index?id={{item._id}}" class="xiansuo">
+              <!-- <image src='/images/xiansuo.png'/> -->
+              <text>线索 </text>
+              <text>{{item.intentionCount}}</text>
+            </navigator>
             <view class='updata'>
               <navigator url="/pages/sceneSet/index?operation=edit&id={{item._id}}">
                 <image src='/images/set.png'/>
               </navigator>
               <view class="fenxiao">
               <button catchtap='noShare' data-index="{{index}}"></button>
-                <button open-type="share" wx:if="{{item.online}}" data-index="{{index}}"></button>
+                <!-- <button open-type="share" wx:if="{{item.online && user.telVerified}}" data-index="{{index}}"></button> -->
                 <image src='/images/fenxiao.png'/>
               </view>
             </view>
@@ -36,3 +41,12 @@
     </view>
   </view>
 </scroll-view>
+
+
+<view class="authorization" wx:if="{{!user.uid}}">
+  <view class="model">
+      <view>微聚合申请获取一下权限：</view>
+      <view>获得你的公开信息（昵称、头像等)</view>
+      <button class='model-btn' open-type='getUserInfo' bindgetuserinfo='login'>授权</button>
+  </view>
+</view>

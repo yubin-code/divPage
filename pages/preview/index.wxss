@@ -1,0 +1,141 @@
+.Jyo-Theme-Light {
+  position: absolute;
+  left:0;top:0;
+  z-index: 999;
+}
+.Jyo-DateTimeDay view{
+  border:1rpx solid #fff;
+}
+.Jyo-DateTimeDay .showDay {
+  border-color:#ec6149;
+}
+page {
+  background: #F7F7FA;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  font-size: 28rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #666;
+}
+.nav .item {
+  flex: 1;
+  text-align: center;
+}
+.nav .item.action {
+  color: #5481F6;
+}
+.main {
+  position: absolute;
+  left:0;right: 0;
+  top:0;bottom: 0;
+}
+.main .header {
+  background: #FFFFFF;
+  width: 678rpx;
+  height: 128rpx;
+  box-shadow: 0 4rpx 8rpx 0 rgba(154,154,154,0.20);
+  box-sizing: border-box;
+  padding: 22rpx;
+  margin: 0 auto;
+  margin-top:10rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content:  space-around;
+}
+.main .header .item .title{
+  color: #666666;
+  font-size: 24rpx;
+}
+.main .header .item .title image{
+  width: 28rpx;
+  height: 28rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+.main .header .item .shu {
+  color: #4A4A4A;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 60rpx;
+}
+.main .list {
+  position: absolute;
+  left:36rpx;right: 36rpx;
+  top:230rpx;bottom: 0;
+  width: 678rpx;
+  background: #FFFFFF;
+  box-shadow: 0 4rpx 8rpx 0 rgba(154,154,154,0.20);
+  box-sizing: border-box;
+  padding: 22rpx;
+  margin: 0 auto;
+}
+
+.main .list .screen {
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #666666;
+  font-size: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  border-bottom:1rpx solid #DEDEDE;
+}
+.main .list .screen .item {
+  padding: 0 30rpx;
+}
+.main .list .screen .item image {
+  width: 28rpx;
+  height: 26.6rpx;
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+
+.main .list .scroll {
+  position: absolute;
+  left:0;right: 0;
+  bottom: 0;top: 85rpx;
+}
+.main .list .scroll .item {
+  line-height: 74rpx;
+  margin:0 22rpx;
+  color: #666666;
+  font-size: 24rpx;
+  box-sizing: border-box;
+  border-bottom:1rpx solid #DEDEDE;
+}
+.main .list .scroll .item .h {
+  width: 100%;
+}
+.main .list .scroll .item .h .title{
+  display: flex;
+  justify-content: space-between;
+}
+.main .list .scroll .item .h .title .h1{
+  flex: 1;
+}
+.main .list .scroll .item .h .title .speed{
+  width: 300rpx;
+  display: flex;
+}
+.main .list .scroll .item .h .title .progress{
+  width: 280rpx;
+}
+.main .list .scroll .item .h .title .percentage {
+  height: 40rpx;
+  margin-top:17rpx;
+  background: #46a0f0;
+}
+
+.main .list .scroll .item .b{
+  display: flex;
+  justify-content: space-between;
+}
+.prompt {
+  text-align: center;
+  font-size: 26rpx;
+  color: #666;
+  padding: 30rpx 0;
+}

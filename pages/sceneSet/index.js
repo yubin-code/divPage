@@ -16,7 +16,7 @@ Page({
       let id = param.id;
       let operation = param.operation;
       // 场景详细信息
-      getScenes(id, data => {
+      getScenes(id + "?update=1", data => {
         this.setData({ data, id, operation });
       });
       return false;
@@ -38,7 +38,7 @@ Page({
           if (res.status.code !== 0) return showModal({ msg: '上传图片错误！' });
 
           // 拼装图片地址
-          let imgUrl = [cof.HOST, 'development/api/resource/image', (res.data && res.data.imgName)].join('/')
+          let imgUrl = [cof.HOST, '/api/resource/image', (res.data && res.data.imgName)].join('/')
           this.setData({ image: imgUrl})
           
         });

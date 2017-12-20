@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.6.0",
+	"libVersion": "1.6.6",
 	"appid": "wx33ae5cd4c0585798",
 	"projectname": "demo",
 	"condition": {
@@ -26,8 +26,8 @@
 				{
 					"id": 0,
 					"name": "自定义",
-					"pathName": "pages/divPage/index",
-					"query": "id=303230bc-23d6-4e8b-98ba-e74be5650814&uid=ffa4070a-aa61-40fb-af45-80df3793a985"
+					"pathName": "pages/share/index",
+					"query": "id=211e6ab2-4d80-407a-9938-a71292cc6ec0&uid=ffa4070a-aa61-40fb-af45-80df3793a985&channelid=c97832f3-dccf-4b6b-b0d8-e4ab1d6f65d9&title=分享的标题&cover=https://api.xiaoyun.com/development/api/resource/image/08873b74-ba26-4fb9-aa52-8ce85318caf2.jpeg"
 				}
 			]
 		}

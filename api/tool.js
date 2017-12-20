@@ -3,7 +3,7 @@ import { Post, Get, Upload } from '../utils/http.js'
 
 // 获取验证码
 const getCode = (tel, callback) => {
-  Get('/development/api/user/phoneVerify/' + tel, {}, res => {
+  Get('/api/user/phoneVerify/' + tel, {}, res => {
     // 判断是否获取验证成功
     if (res.status.code !== 0){
       showModal({ content: '获取验证码失败' });
@@ -15,7 +15,7 @@ const getCode = (tel, callback) => {
 
 // 校验验证码
 const checkCode = (tel, code, callback) => {
-  Post('/development/api/user/phoneVerify/' + tel + '/' + code, {}, res => {
+  Post('/api/user/phoneVerify/' + tel + '/' + code, {}, res => {
     if (res.status.code !== 0){
       showModal({ content: '验证码错误' });
       return false;
@@ -26,7 +26,7 @@ const checkCode = (tel, code, callback) => {
 
 // 上传图片
 const updata = (file, name, callback) => {
-  Upload('/development/api/resource/upload',file, name, {}, callback);
+  Upload('/api/resource/upload',file, name, {}, callback);
 }
 
 export {

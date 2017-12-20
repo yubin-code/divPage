@@ -29,7 +29,8 @@
 }
 .group .images {
   width: 430rpx;
-  min-height: 180rpx;
+  height: 336rpx;
+  overflow: hidden;
   background: #f2f2f2;
 }
 .group .img {
@@ -37,7 +38,6 @@
 }
 .group .img image{
   width: 430rpx;
-  /* height: 336rpx; */
   vertical-align: middle;
 }
 .group .img .p{

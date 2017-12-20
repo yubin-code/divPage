@@ -1,0 +1,14 @@
+<form>
+  <view class="list">
+    <view class="item">
+      <view class="lable">渠道名称</view>
+      <view class="value">
+        <input class='code' bindinput="bindName" value="{{channelName}}" placeholder='填写渠道名称' focus='true'	/>
+      </view>
+    </view>
+  </view>
+  <view class='formbtn'>
+      <navigator class='btn close' open-type="navigateBack" delta='1'>取消</navigator>
+    <button class='btn' catchtap='submit'>保存</button>
+  </view>
+</form>

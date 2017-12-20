@@ -7,37 +7,7 @@ import { scenesCreate, getScenes, editScenes, addIntention } from "../../api/sce
 import { showModal, remoData, setData } from '../../utils/util.js';
 Page({
   data: {
-    parts: [
-      // {
-      //   type: 'text',
-      //   title: '文字',
-      //   key: 'text',
-      //   class: ["layout-text-style"],
-      //   val: "xxxxx",
-      //   attr: {
-      //     "font-size": 20 + "rpx",
-      //     color: "#999",
-      //     "text-align": "left"
-      //   },
-      // },
-      // {
-      //   "type": "video",
-      //   "class": [
-      //     "layout-video-style"
-      //   ],
-      //   "src": "3123",
-      //   "attr": {
-      //     "top": 89,
-      //     "let": 0,
-      //     "z-index": 101,
-      //     "left": 8
-      //   },
-      //   "css": "",
-      //   "clientY": -147,
-      //   "clientX": -205,
-      //   poster: "/core/images/poster.png",
-      // }
-    ], // 页面构成部分
+    parts: [],     // 页面构成部分
     partsIndex: 0, // 组件部分下表防止报错
   },
   onLoad: function (parem) {
@@ -47,7 +17,7 @@ Page({
     layout.init(parem);
     
     // 获取初始化数据
-    (parem.id || parem.systemId) && this.getParts(parem);
+    (parem.id || parem.systemId) && this.getParts(parem, layout);
     
     layout.dblclick = e => {
       let index = e.currentTarget.dataset.index;
@@ -62,7 +32,13 @@ Page({
     layout.addComponent = (card) => {
       let data = this.data;
       let parts = [...data.parts, card]
-      this.setData({ parts });
+      let lay = data.layout;
+      // 默认选中
+      let index = (parts.length - 1)
+      layout.layoutIndex = index;
+      lay.layoutIndex = index;
+      
+      this.setData({ parts, layout: lay});
     }
     
     // 编辑数据
@@ -86,8 +62,7 @@ Page({
         });
         return false;
       }
-      // 下一步
-      nxet();
+
       // 如果没有封面, 
       if (!data.cover){
         let parts = data.parts
@@ -98,17 +73,19 @@ Page({
           }
         }
       }
-
+      
       // 如果没有标题
       if (!data.title) {
         data.title = '未设置标题'
       }
       
       if (!this.data.id){
+        delete data.id;
         // 添加数据
         scenesCreate(data, res => {
           // 保存返回的id方便修改数据 
           this.setData({ id: res.data.id });
+          nxet(); // 下一步
           showModal({ content: '保存数据成功' });
         });
         return false;
@@ -117,9 +94,10 @@ Page({
       // 修改数据
       editScenes(this.data.id, data, () => {
         // wx.navigateBack({ delta: 1 })
+        nxet(); // 下一步
         showModal({ content: '修改数据成功' });
+        wx.navigateBack({ delta: 1 })
       });
-
     }
     
     // 删除数据
@@ -198,18 +176,18 @@ Page({
   onUnload (){
     remoData('outline');
   },
-  getParts(parem){
+  getParts(parem, layout){
     let user = getUser('user');
-    getScenes((parem.id || parem.systemId), data => {
+    getScenes((parem.id || parem.systemId) + "?update=1", data => {
       // 显示页面数据
       let parts = data.parts || [];
-
+      
       let id = data._id;
       // 如果是模版id那么不保存id
       if (parem.buildin == 'true'){
         id = ''
       }
-
+      
       // 如果场景没有上线那么就不能访问
       if (!!id && !parem.mode && !data.online){
         showModal({ content: '此场景已下线' }, () => {
@@ -218,6 +196,15 @@ Page({
         return false;
       }
 
+      let index = 0;
+      for (let item in parts){
+        let Zindex = parts[item].pureAttr['z-index'];
+        if (Zindex > index){
+          index = Zindex;
+        }
+      }
+      // 修改index 的默认值
+      layout.Zindex = index;
       this.setData({ parts, id });
       // 获取页面详情
       setData('outline', data);

@@ -1,0 +1,46 @@
+<scroll-view scroll-y class="scroll-view" bindscrolltolower="scrollButtom">
+  <view class="index-list">
+    <view class='operation'>
+      <view></view>
+      <navigator class='url' url='/pages/setChannel/index?mode=add'>新增渠道</navigator>
+    </view>
+    <view class='item' wx:if="{{dataDefault._id}}">
+      <view class='title'>{{dataDefault.channelName}}</view>
+      <view class='tool'>
+        <view class='qcode'>
+          <navigator url='/pages/channelQcode/index?id={{scene.id}}&title={{scene.title}}&cover={{scene.cover}}&channelid={{dataDefault.id}}&channelName={{dataDefault.channelName}}&uid={{user.uid}}'>
+            <image src='/images/qcode.png'/>
+          </navigator>
+        </view>
+        <view class='fenxiao'>
+            <button open-type="share" data-index="{{index}}"></button>
+              <image src='/images/fenxiao.png'/>
+        </view>
+      </view>
+    </view>
+    <block wx:for="{{list}}" wx:key="this">
+      <view class='item'>
+        <view class='title'>{{item.channelName}}</view>
+        <view class='tool'>
+          <view class='setData'>
+            <navigator url='/pages/setChannel/index?id={{item._id}}'>
+              <image src='/images/set.png'/>
+            </navigator>
+          </view>
+          <view class='qcode'>
+            <navigator url='/pages/channelQcode/index?id={{scene.id}}&title={{scene.title}}&cover={{scene.cover}}&channelid={{item.id}}&channelName={{item.channelName}}&uid={{user.uid}}'>
+              <image src='/images/qcode.png'/>
+            </navigator>
+          </view>
+          <view class='fenxiao'>
+              <button open-type="share" data-index="{{index}}"></button>
+                <image src='/images/fenxiao.png'/>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="load" wx:if="{{ isLoad > 0 }}">
+      {{ isLoad === 1 ? '加载中' : '没有数据了' }}
+    </view>
+  </view>
+</scroll-view>

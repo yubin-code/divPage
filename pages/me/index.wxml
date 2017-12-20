@@ -3,6 +3,7 @@
     <view class="banner">
       <image src='{{avatarUrl}}' wx:if="{{avatarUrl}}"/>
       <view class="text">{{ nickName }}</view>
+      <view class='hint' wx:if="{{sIndex}}">{{status[sIndex]}}</view>
     </view>
     <view class="ul">
       <view class="li">
@@ -13,10 +14,10 @@
         <view class="num">{{ scenesInUse }}</view>
         <view class="scene">使用中</view>
       </view>
-      <view class="li">
+      <!-- <view class="li">
         <view class="num"> {{ intentionCount }} </view>
         <view class="scene">线索数</view>
-      </view>
+      </view> -->
     </view>
   </view>
 
@@ -37,3 +38,12 @@
     </view>
   </view>
 </scroll-view>
+
+
+<view class="authorization" wx:if="{{!user.uid}}">
+  <view class="model">
+      <view>微聚合申请获取一下权限：</view>
+      <view>获得你的公开信息（昵称、头像等)</view>
+      <button class='model-btn' open-type='getUserInfo' bindgetuserinfo='login'>授权</button>
+  </view>
+</view>

@@ -1,0 +1,20 @@
+<!-- 日期组件 -->
+<template name="Jyo-DateTime">
+  <view class="{{_theme}}">
+    <view id="{{_id}}" class="Jyo-DateTime" wx:if="{{_isVisible}}" data-id="{{_id}}">
+      <view class="Jyo-DateTimeTopBar">
+        <view class="Jyo-DateTimeSelectedDateTitle">{{selectedDateTitle}}</view>
+        <view class="Jyo-DateTimeLeftArrow" catchtap="{{previousMonthEventId}}"></view>
+        <view class="Jyo-DateTimeRightArrow" catchtap="{{nextMonthEventId}}"></view>
+        <view class="Jyo-DateTimeWeekFrame">
+          <view wx:for="{{weekTitles}}" wx:key="*this">{{item}}</view>
+        </view>
+      </view>
+      <view class="Jyo-DateTimeDateFrame">
+        <view wx:for="{{days}}" class="Jyo-DateTimeDay" wx:for-item="day" wx:key="date">
+          <view class="{{day.style}}" data-date="{{day.date}}" catchtap="{{selectEventId}}">{{day.day}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

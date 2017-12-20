@@ -14,7 +14,7 @@
     wx:for="{{list}}"
     wx:key="{{index}}">
       <view class="img">
-         <image wx:if="{{item.cover}}" src='{{item.cover}}' mode='widthFix'/> 
+         <image wx:if="{{item.preview}}" src='{{item.preview}}' mode='widthFix'/> 
       </view>
       <!-- <view class="text">add</view> -->
     </navigator>

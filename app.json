@@ -5,7 +5,13 @@
     "pages/scene/index",
     "pages/sceneSet/index",
     "pages/checkMobile/index",
-    "pages/me/index"
+    "pages/me/index",
+    "pages/clue/index",
+    "pages/preview/index",
+    "pages/share/index",
+    "pages/channel/index",
+    "pages/setChannel/index",
+    "pages/channelQcode/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -26,7 +32,7 @@
         "pagePath": "pages/scene/index",
         "iconPath": "images/tab/chang.png",
         "selectedIconPath": "images/tab/chang-a.png",
-        "text": "模版"
+        "text": "场景"
       },{
         "pagePath": "pages/me/index",
         "iconPath": "images/tab/me.png",

@@ -1,0 +1,13 @@
+<view class="qcode">
+  <view class="scene-name">{{scene.title}}</view>
+  <view class="channel-name">{{scene.channelName}}</view>
+
+  <view class='qcode-img'>
+    <image src='{{qcode}}'/>
+  </view>
+
+  <view class='btn'>
+    <button catchtap='downQcode'>下载</button>
+    <button open-type="share" >分享</button>
+  </view>
+</view>

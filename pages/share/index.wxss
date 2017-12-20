@@ -1,0 +1,18 @@
+.body {
+  position: absolute;
+  right:0;left: 0;
+  bottom: 0;top:0;
+}
+.want {
+  position: absolute;
+  left: 0;right: 0;
+  bottom: 0;
+  z-index: 999999999999;
+  text-align: center;
+  background: #fff;
+  border-top:1rpx solid #eee;
+  color: #666;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 26rpx;
+}

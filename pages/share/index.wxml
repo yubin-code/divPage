@@ -1,0 +1,10 @@
+<import src="../../core/Layout/template/shareLayout.wxml"/>
+<view class="body">
+  <template is="layout-div" data="{{layout, parts}}"/>
+  <!-- <navigator class='want'
+    url='/pages/index/index'
+    open-type='switchTab'
+    style='bottom:{{height}}px'>
+    我也要制作
+  </navigator> -->
+</view>

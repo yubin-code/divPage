@@ -12,7 +12,7 @@
       </view>
       <view class="Jyo-DateTimeDateFrame">
         <view wx:for="{{days}}" class="Jyo-DateTimeDay" wx:for-item="day" wx:key="date">
-          <view class="{{day.style}}" data-date="{{day.date}}" catchtap="{{selectEventId}}">{{day.day}}</view>
+          <view class="{{day.style}}" data-date="{{day.date}}" data-index="{{index}}" catchtap="{{selectEventId}}">{{day.day}}</view>
         </view>
       </view>
     </view>

@@ -113,6 +113,11 @@ JyoComponent.unregister = function (name, obj) {
 import Layout from "Layout/Layout";
 JyoComponent.register("Layout", Layout);
 
+// 日期组件
+import dateTime from "DateTime/DateTime";
+JyoComponent.register("DateTime", dateTime);
+
+
 module.exports = JyoComponent;
 
 // git: x: 1005:1005::/home/git:/usr/bin / g - shell

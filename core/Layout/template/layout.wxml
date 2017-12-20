@@ -39,7 +39,7 @@
     catchtouchmove="{{layoutIndex == index ? LayoutMove : ''}}"
     catchtouchend="{{layoutIndex == index ? LayoutMoveEnd: ''}}"
     catchtap="{{layoutIndex == index ? '': LayoutTap}}"
-    wx:if='{{mode && item.key == "button"}}'
+    wx:if='{{item.key == "button"}}'
     class="layout-button-cop {{item.class}} {{layoutIndex == index ? 'layout-avtive' : ''}}"
     data-action="{{item.action || ''}}"
     data-value="{{item.value || ''}}"
@@ -48,7 +48,7 @@
     style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;">
     {{item.value}}
     </button>
-    <view class="layout-button-cop {{item.class}}"
+    <!-- <view class="layout-button-cop {{item.class}}"
      style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;"
       data-action="{{item.action || ''}}"
       data-value="{{item.tel || ''}}"
@@ -56,24 +56,24 @@
       data-type='{{item.type}}'
       catchtap="{{item.click + _eventId}}"
       wx:if='{{!mode && item.key == "button"}}'
-    >{{item.value}}</view>
+    >{{item.value}}</view> -->
 
     <!--视频  -->
-     <image
-     catchtouchstart="{{layoutIndex == index ? LayoutMoveStart : ''}}"
+    <image
+    catchtouchstart="{{layoutIndex == index ? LayoutMoveStart : ''}}"
     catchtouchmove="{{layoutIndex == index ? LayoutMove : ''}}"
     catchtouchend="{{layoutIndex == index ? LayoutMoveEnd: ''}}"
     catchtap="{{layoutIndex == index ? '': LayoutTap}}"
     class="{{item.class}} {{layoutIndex == index ? 'layout-avtive' : ''}}"
     wx:if="{{mode && item.key == 'video'}}"
     src="{{item.poster}}"
+    data-action="{{item.action || ''}}"
     data-index='{{index}}'
     data-type='{{item.key}}'
-    data-value="{{item.value || ''}}"
     style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;"/>
- <video class="layout-video"
+ <video class="{{item.class}}"
      id="myVideo"
-     src="{{item.src}}"
+     src="{{item.url || ''}}"
      autoplay="{{item.switch}}"
      wx:if="{{!mode && item.key == 'video'}}"
      style="{{item.css}};top:{{item.attr.top}}px;left:{{item.attr.left}}px;"
@@ -96,22 +96,25 @@
     wx:for-index="k"
     wx:key="{{k}}">
        <view class="layout-input"
-      wx:if="{{i.type == 'input' && !i.isShow && mode}}">{{i.name}}</view>
+      wx:if="{{i.type == 'input' && !i.isShow}}">{{i.name}}</view>
       <view class="layout-button"
-      wx:if="{{i.type == 'button' && mode}}"
+      wx:if="{{i.type == 'button'}}"
       style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};">{{i.name}}</view> 
 
-      <input name="{{i.key}}"
+      <!-- <input name="{{i.key}}"
       class="layout-input"
       wx:if="{{i.type == 'input' && !i.isShow && !mode}}"
       value="{{i.input || ''}}"
-      placeholder="{{i.name}}"/>
-      <button
+      placeholder="{{i.name}}"/> -->
+      <!-- <button
         wx:if="{{i.type == 'button' && !mode}}"
         class="layout-button"
         formType="submit"
-        style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};" data-index="{{index}}" data-k="{{k}}" data-prompt="{{i.prompt}}">{{i.name}}</button>
+        style="background:{{item.attr.background}};color:{{item.attr.color}};text-align:{{item.attr['text-align']}};font-size:{{item.attr['font-size']}};" data-index="{{index}}" data-k="{{k}}" data-prompt="{{i.prompt}}">{{i.name}}</button> -->
     </block>
   </form>
 </template>
 <!-- http://116.242.0.89/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4?wsrid_tag=5a167593_hkuan35_804-14314&wsiphost=local -->
+
+
+<!-- https://jy.jnlcsyxx.com/video/20170625205754wx-file.mp4 -->

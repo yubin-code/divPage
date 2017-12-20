@@ -9,8 +9,9 @@ const Request = (type, url, data, call) => {
   // data.appid = cof.APPID
   let user = getData('user') || {};
   let header = { "Content-Type": 'application/json' }
-  header["Authorization"] = "Bearer " + (user.token || '')
-
+  if (user.token){
+    header["Authorization"] = "Bearer " + (user.token || '')
+  }
   wx.request({
     header,
     method: type,
@@ -65,7 +66,7 @@ const Upload = (url, file, name, data, call) => {
  */
 const downFile = (url, call) => {
   wx.downloadFile({
-    url: cof.HOST + url,
+    url,
     success: function (res) {
       (typeof call == "function") && call(res.tempFilePath, "");
     }

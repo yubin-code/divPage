@@ -1,0 +1,67 @@
+<import src="../../core/JyoComponent.wxml" />
+<template is="Jyo-DateTime" data="{{...dateTime}}"></template>
+<view class='main'>
+  <view class='nav'>
+    <view 
+      class="item {{ timeIndex == index? 'action' : '' }}"
+      wx:for="{{time}}"
+      wx:key="{{index}}"
+      data-index="{{index}}"
+      catchtap='navClick'
+    >{{item.name}}</view>
+  </view>
+  <view class='header'>
+    <view class='item'>
+      <view class='title'>
+        <image src='/images/chang.png'/>
+        <text>浏览总数</text>
+      </view>
+      <view class="shu">{{res.intentionCount}}个</view>
+    </view>
+    <view class='item'>
+      <view class='title'>
+        <image src='/images/xians.png'/>
+        <text>转发总数</text>
+      </view>
+      <view class="shu">{{res.scenesCount}}个</view>
+    </view>
+  </view>
+  <view class='list'>
+    <view class='screen'>
+      <view class='item'>
+        <text>{{ start }}</text>
+        <image src='/images/date.png'/>
+      </view>
+      <view>~</view>
+      <view class='item'>
+        <text>{{ end }}</text>
+        <image src='/images/date.png'/>
+      </view>
+    </view>
+    <scroll-view scroll-y class='scroll'>
+      <view class='item' wx:for="{{res.intention}}" wx:key="{{index}}">
+        <view class='h'>
+          <view class='title'>
+            <view class='h1'>渠道名称</view>
+            <view class='speed'>
+              <view class='progress'>
+                <view class="percentage" style="width:30%"> </view>
+              </view>
+              <view class='text'>19%</view>
+            </view>
+          </view>
+        </view>
+
+        <view class='b'>
+          <view class='liulan'>浏览量：400次</view>
+          <view class='zhuanfa'>转发量：16次</view>
+        </view>
+
+        <view class='x'>
+          <view class='xiansuo'>线索数：2条</view>
+        </view>
+      </view>
+      <view class="prompt" wx:if="{{res.intention.length <= 0}}">没有任何数据</view>
+    </scroll-view>
+  </view>
+</view>

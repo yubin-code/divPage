@@ -189,10 +189,6 @@ slider {
   justify-content: space-between;
   align-content: center;
 }
-.layout-video-style {
-  position: relative;
-  width: 600rpx;
-}
 .layout-video, .layout-video-img {
   vertical-align: middle;
   width:100%;

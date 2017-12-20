@@ -1,0 +1,46 @@
+.navigator-hover {
+  background: #fff;
+}
+.qcode {
+
+}
+.qcode .scene-name {
+  padding: 30rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #333;
+}
+.qcode .channel-name {
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+}
+.qcode .qcode-img {
+  width: 500rpx;
+  height: 500rpx;
+  border:1px solid #ccc;
+  margin: 80rpx auto;
+}
+
+.qcode .qcode-img image {
+  width: 100%;
+  height: 100%;
+}
+.btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30rpx;
+}
+
+
+.btn button {
+  margin: 0 auto;
+  background: #f37c7b;
+  font-size: 35rpx;
+  color: #fff;
+  border-radius: 0;
+  padding: 0 100rpx;
+}
+.btn button::after {
+  border:none;
+}

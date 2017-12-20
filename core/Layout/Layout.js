@@ -410,7 +410,6 @@ class Layout extends Base {
     page[this.UserForm] = e => {
       let detail = e.detail.target.dataset;
       let data = e.detail.value;
-      console.log(data)
       // 验证字段
       let check = Model.check(data);
       if (check.msg) {
@@ -671,7 +670,7 @@ class Layout extends Base {
               }
 
               // 拼装图片地址
-              let imgUrl = [cof.HOST, 'development/api/resource/image', url].join('/');
+              let imgUrl = [cof.HOST, '/api/resource/image', url].join('/');
               // 设置图片的宽度
               imgUrl += width;
               
@@ -810,6 +809,7 @@ class Layout extends Base {
     let css = this.getNewStyle(card.attr);
     card.css = css.css;
     card.pureAttr = css.pureAttr;
+    
     return card
   }
 

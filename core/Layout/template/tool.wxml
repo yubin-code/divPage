@@ -8,7 +8,7 @@
       wx:for="{{layout.Style[item.type].child}}"
       wx:key="{{index}}"
       data-type="{{layout.Style[item.type].type}}"
-      data-key="{{item}}"
+      data-key="{{item.type}}"
       data-value="{{index}}"
       wx:for-item="i"
       style="color:{{parts[layout.layoutIndex].attr['text-align'] == index ? i.colorSelect : ''}}">

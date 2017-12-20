@@ -1,0 +1,72 @@
+.navigator-hover {
+  background: transparent;
+}
+page {
+  background: #f2f2f2;
+}
+.scroll-view {
+  position: absolute;
+  left:0;right:0;
+  top:0;bottom: 0;
+}
+.index-list .item {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  padding: 30rpx 20rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-bottom: 2rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.index-list .item .title {
+  color: #4A4A4A;
+  font-size: 32rpx;
+}
+.index-list .item .tool {
+  font-size: 26rpx;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+}
+.index-list .item .tool image{
+ width: 40rpx;
+ height: 40rpx; 
+ vertical-align: middle;
+ margin-right: 10rpx;
+}
+.index-list .fenxiao {
+  position: relative;
+}
+.index-list .fenxiao button {
+  position: absolute;
+  top:0;left:0;
+  width: 30rpx;
+  height: 40rpx;
+  opacity: 0;
+}
+
+.load {
+  color: #999;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  background: #fff;
+}
+
+.operation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rpx;
+  padding: 30rpx;
+  background: #fff;
+}
+.operation .url {
+  background: #f37c7b;
+  padding: 15rpx 30rpx;
+  font-size: 28rpx;
+  color: #fff;
+}

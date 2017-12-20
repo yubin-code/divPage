@@ -36,6 +36,7 @@ let Comp = {
       type: "video",
       poster: "/core/images/poster.png",
       attr: {
+        "left": 0,
         "width": 80,
         "height": 200
       },

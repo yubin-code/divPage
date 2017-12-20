@@ -8,9 +8,9 @@ page {
 }
 .header .banner {
   padding-top:30rpx;
-  height: 260rpx;
   background: #009afb;
   text-align: center;
+  position: relative;
   color: #fff;
   font-size: 30rpx;
 }
@@ -18,6 +18,13 @@ page {
   width: 140rpx;
   height: 140rpx;
   border-radius: 100%;
+}
+.header .banner .hint {
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background: #0f8bde;
+  font-size: 26rpx;
 }
 .header .banner .text {
   padding: 20rpx 0;

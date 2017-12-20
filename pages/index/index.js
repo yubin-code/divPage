@@ -13,6 +13,11 @@ Page({
   onLoad: function () {
     let user = getUser() || '';
     this.setData({ user });
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({ width: res.windowWidth, height: res.windowHeight });
+      }
+    });
   },
   login (e){
     login(e, this);
